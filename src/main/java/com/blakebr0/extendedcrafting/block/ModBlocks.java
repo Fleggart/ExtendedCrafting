@@ -23,7 +23,8 @@ public class ModBlocks {
 	public static final BlockPedestal blockPedestal = new BlockPedestal();
 	@AddonReferenced public static final BlockCraftingCore blockCraftingCore = new BlockCraftingCore();
 	
-	public static final BlockBasic blockCraftingTable = new BlockBasic("ec.crafting_table", Material.WOOD, SoundType.WOOD, 2.5F, 10.0F);
+	// 删除这行
+	// public static final BlockBasic blockCraftingTable = new BlockBasic("ec.crafting_table", Material.WOOD, SoundType.WOOD, 2.5F, 10.0F);
 	
 	public static final BlockAutomationInterface blockAutomationInterface = new BlockAutomationInterface();
 
@@ -47,7 +48,8 @@ public class ModBlocks {
 		registry.register(blockLamp, "lamp", new ItemBlockLamp(blockLamp));
 		registry.register(blockTrimmed, "trimmed", new ItemBlockTrimmed(blockTrimmed));
 		
-		registry.register(blockCraftingTable, "crafting_table");
+		// 删除这行
+		// registry.register(blockCraftingTable, "crafting_table");
 
 		registry.register(blockPedestal, "pedestal");
 		registry.register(blockCraftingCore, "crafting_core");
