@@ -15,7 +15,6 @@ public class ModConfig {
 	public static ModConfig instance;
 	
 	public static boolean confGuideEnabled;
-	public static boolean confHandheldTableEnabled;
 	public static boolean confEnergyInWaila;
 
 	public static boolean confCraftingCoreEnabled;
@@ -76,7 +75,6 @@ public class ModConfig {
 		category = "general";
 		config.setCategoryComment(category, "Settings for general things.");
 		confGuideEnabled = config.getBoolean("guide_enabled", category, true, "Should the In-Game Guide Book be enabled?");
-		confHandheldTableEnabled = config.getBoolean("handheld_table_enabled", category, true, "Should the Handheld Crafting Table be enabled?");
 		confEnergyInWaila = config.getBoolean("energy_in_waila", category, true, "Should WAILA show the current energy of Extended Crafting machines?");
 		
 		category = "combination_crafting";
@@ -162,6 +160,11 @@ public class ModConfig {
 			config.renameProperty("singularity", "_ultimate_singularity_recipe", "ultimate_singularity_recipe");
 			config.renameProperty("singularity", "_custom_singularities", "custom_singularities");
 			config.renameProperty("singularity", "_ultimate_blacklist", "ultimate_singularity_recipe_blacklist");
+			
+			// 如果旧的 handheld_table_enabled 配置存在，从文件中移除
+			if (config.hasKey("general", "handheld_table_enabled")) {
+				config.getCategory("general").remove("handheld_table_enabled");
+			}
 		}
 	}
 	
