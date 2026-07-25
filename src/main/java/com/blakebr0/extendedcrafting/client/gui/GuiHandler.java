@@ -14,8 +14,6 @@ public class GuiHandler implements IGuiHandler {
 
 	public static final int CRAFTING_CORE = 0;
 
-	public static final int HANDHELD_TABLE = 4;
-
 	public static final int AUTOMATION_INTERFACE = 6;
 
 	public static final int BASIC_TABLE = 7;
@@ -30,14 +28,12 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-		if (tile == null && ID != HANDHELD_TABLE) {
+		if (tile == null) {
 			return null;
 		}
 		switch (ID) {
 			case CRAFTING_CORE:
 				return new GuiCraftingCore((TileCraftingCore) tile, new ContainerCraftingCore(player.inventory, (TileCraftingCore) tile));
-			case HANDHELD_TABLE:
-				return new GuiHandheldTable(new ContainerHandheldTable(player.inventory, world));
 			case AUTOMATION_INTERFACE:
 				return new GuiAutomationInterface(new ContainerAutomationInterface(player.inventory, (TileAutomationInterface) tile));
 			case BASIC_TABLE:
@@ -59,14 +55,12 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-		if(tile == null && ID != HANDHELD_TABLE) {
+		if (tile == null) {
 			return null;
 		}
 		switch (ID) {
 			case CRAFTING_CORE:
 				return new ContainerCraftingCore(player.inventory, (TileCraftingCore) tile);
-			case HANDHELD_TABLE:
-				return new ContainerHandheldTable(player.inventory, world);
 			case AUTOMATION_INTERFACE:
 				return new ContainerAutomationInterface(player.inventory, (TileAutomationInterface) tile);
 			case BASIC_TABLE:
