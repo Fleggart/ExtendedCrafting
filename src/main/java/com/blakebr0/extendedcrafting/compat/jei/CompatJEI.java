@@ -20,7 +20,6 @@ import com.blakebr0.extendedcrafting.crafting.endercrafter.EnderCrafterRecipeMan
 import com.blakebr0.extendedcrafting.crafting.table.TableRecipeManager;
 import com.blakebr0.extendedcrafting.crafting.table.TableRecipeShaped;
 import com.blakebr0.extendedcrafting.crafting.table.TableRecipeShapeless;
-import com.blakebr0.extendedcrafting.item.ModItems;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;

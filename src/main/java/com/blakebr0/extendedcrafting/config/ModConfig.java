@@ -41,10 +41,6 @@ public class ModConfig {
 	public static int confEnderTimeRequired;
 	public static float confEnderAlternatorEff;
 	
-	public static boolean confRMEnabled;
-	public static boolean confRMOredict;
-	public static boolean confRMNBT;
-	
 	public static boolean confSingularityEnabled;
 	public static int confSingularityAmount;
 	public static int confSingularityRF;
@@ -111,12 +107,6 @@ public class ModConfig {
 		confEnderTimeRequired = config.getInt("time_required", category, 60, 1, Integer.MAX_VALUE, "How many seconds each craft should take.");
 		confEnderAlternatorEff = config.getFloat("alternator_effectiveness", category, 0.01F, 0, 1, "How much an Ender Alternator should speed up a craft. This is the percentage of time_required.");
 		
-		category = "recipe_maker";
-		config.setCategoryComment(category, "Settings for the Recipe Maker.");
-		confRMEnabled = config.getBoolean("enabled", category, true, "Should the Recipe Maker be enabled?");
-		confRMOredict = config.getBoolean("use_oredictionary", category, true, "Should the Recipe Maker use OreDictionary entries when applicable?");
-		confRMNBT = config.getBoolean("use_nbt", category, false, "Should the Recipe Maker also copy the NBT of the ingredients?");
-		
 		category = "singularity";
 		config.setCategoryComment(category, "Settings for the Singularities.");
 		confSingularityEnabled = config.getBoolean("enabled", category, true, "Should the Singularities be enabled?");
@@ -149,9 +139,6 @@ public class ModConfig {
 			ConfigCategory settings = config.getCategory("settings");
 			settings.remove("compressor_item_rate");
 			config.removeCategory(settings);
-			
-			config.renameProperty("recipe_maker", "recipe_maker_oredict", "use_oredictionary");
-			config.renameProperty("recipe_maker", "recipe_maker_nbt", "use_nbt");
 			
 			config.renameProperty("singularity", "_singularity_amount", "material_amount");
 			config.renameProperty("singularity", "_singularity_rf", "energy_cost");
