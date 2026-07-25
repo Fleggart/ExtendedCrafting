@@ -17,14 +17,12 @@ public class ModBlocks {
 
 	public static final BlockStorage blockStorage = new BlockStorage();
 	public static final BlockFrame blockFrame = new BlockFrame();
-	public static final BlockLamp blockLamp = new BlockLamp();
+	// 删除这行
+	// public static final BlockLamp blockLamp = new BlockLamp();
 	public static final BlockTrimmed blockTrimmed = new BlockTrimmed();
 
 	public static final BlockPedestal blockPedestal = new BlockPedestal();
 	@AddonReferenced public static final BlockCraftingCore blockCraftingCore = new BlockCraftingCore();
-	
-	// 删除这行
-	// public static final BlockBasic blockCraftingTable = new BlockBasic("ec.crafting_table", Material.WOOD, SoundType.WOOD, 2.5F, 10.0F);
 	
 	public static final BlockAutomationInterface blockAutomationInterface = new BlockAutomationInterface();
 
@@ -45,11 +43,9 @@ public class ModBlocks {
 				Ore.of(0, "blockBlackIron"), Ore.of(1, "blockLuminessence"), Ore.of(2, "blockNetherStar"),
 				Ore.of(3, "blockCrystaltine"), Ore.of(4, "blockUltimate"));
 		registry.register(blockFrame, "frame");
-		registry.register(blockLamp, "lamp", new ItemBlockLamp(blockLamp));
+		// 删除这两行
+		// registry.register(blockLamp, "lamp", new ItemBlockLamp(blockLamp));
 		registry.register(blockTrimmed, "trimmed", new ItemBlockTrimmed(blockTrimmed));
-		
-		// 删除这行
-		// registry.register(blockCraftingTable, "crafting_table");
 
 		registry.register(blockPedestal, "pedestal");
 		registry.register(blockCraftingCore, "crafting_core");
