@@ -140,9 +140,6 @@ public class ModConfig {
 			settings.remove("compressor_item_rate");
 			config.removeCategory(settings);
 			
-			config.renameProperty("recipe_maker", "recipe_maker_oredict", "use_oredictionary");
-			config.renameProperty("recipe_maker", "recipe_maker_nbt", "use_nbt");
-			
 			config.renameProperty("singularity", "_singularity_amount", "material_amount");
 			config.renameProperty("singularity", "_singularity_rf", "energy_cost");
 			config.renameProperty("singularity", "_singularity_catalyst", "default_catalyst");
@@ -151,7 +148,12 @@ public class ModConfig {
 			config.renameProperty("singularity", "_custom_singularities", "custom_singularities");
 			config.renameProperty("singularity", "_ultimate_blacklist", "ultimate_singularity_recipe_blacklist");
 			
-		
+			// 如果旧的 handheld_table_enabled 配置存在，从文件中移除
+			if (config.hasKey("general", "handheld_table_enabled")) {
+				config.getCategory("general").remove("handheld_table_enabled");
+			}
+		}
+	}
 	
 	private static void updateProperty(String oldName, String newName, String newCategory) {
 		config.moveProperty("settings", oldName, newCategory);
