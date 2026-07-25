@@ -73,12 +73,6 @@ public class CompatJEI implements IModPlugin {
 		
 		IJeiHelpers helpers = registry.getJeiHelpers();
 		IRecipeTransferRegistry transfer = registry.getRecipeTransferRegistry();
-
-		if (ModConfig.confHandheldTableEnabled) {
-			registry.addRecipeCatalyst(new ItemStack(ModItems.itemHandheldTable), VanillaRecipeCategoryUid.CRAFTING);
-			registry.addRecipeClickArea(GuiHandheldTable.class, 88, 32, 28, 23, VanillaRecipeCategoryUid.CRAFTING);
-			transfer.addRecipeTransferHandler(ContainerHandheldTable.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
-		}
 		
 		if (ModConfig.confCraftingCoreEnabled) {
 			registry.addRecipeCatalyst(new ItemStack(ModBlocks.blockCraftingCore), CombinationCraftingCategory.UID);
