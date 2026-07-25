@@ -11,8 +11,6 @@ public class ModItems {
 
 	public static final ItemMaterial itemMaterial = new ItemMaterial();
 
-	public static final ItemHandheldTable itemHandheldTable = new ItemHandheldTable();
-	
 	public static final ItemRecipeMaker itemRecipeMaker = new ItemRecipeMaker();
 
 	public static final ItemSingularity itemSingularity = new ItemSingularity();
@@ -26,8 +24,6 @@ public class ModItems {
 
 		registry.register(itemMaterial, "material");
 
-		registry.register(itemHandheldTable, "handheld_table");
-		
 		registry.register(itemRecipeMaker, "recipe_maker");
 
 		registry.register(itemSingularity, "singularity");
