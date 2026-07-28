@@ -9,14 +9,14 @@ import com.blakebr0.extendedcrafting.compat.jei.combinationcrafting.CombinationC
 import com.blakebr0.extendedcrafting.compat.jei.combinationcrafting.CombinationCraftingWrapper;
 import com.blakebr0.extendedcrafting.compat.jei.compressor.CompressorCraftingCategory;
 import com.blakebr0.extendedcrafting.compat.jei.compressor.CompressorCraftingWrapper;
-import com.blakebr0.extendedcrafting.compat.jei.endercrafter.EnderCrafterCategory;
+// 删除这一行: import com.blakebr0.extendedcrafting.compat.jei.endercrafter.EnderCrafterCategory;
 import com.blakebr0.extendedcrafting.compat.jei.tablecrafting.*;
 import com.blakebr0.extendedcrafting.config.ModConfig;
 import com.blakebr0.extendedcrafting.crafting.CombinationRecipe;
 import com.blakebr0.extendedcrafting.crafting.CombinationRecipeManager;
 import com.blakebr0.extendedcrafting.crafting.CompressorRecipe;
 import com.blakebr0.extendedcrafting.crafting.CompressorRecipeManager;
-import com.blakebr0.extendedcrafting.crafting.endercrafter.EnderCrafterRecipeManager;
+// 删除这一行: import com.blakebr0.extendedcrafting.crafting.endercrafter.EnderCrafterRecipeManager;
 import com.blakebr0.extendedcrafting.crafting.table.TableRecipeManager;
 import com.blakebr0.extendedcrafting.crafting.table.TableRecipeShaped;
 import com.blakebr0.extendedcrafting.crafting.table.TableRecipeShapeless;
@@ -60,9 +60,7 @@ public class CompatJEI implements IModPlugin {
 			registry.addRecipeCategories(new CompressorCraftingCategory(helper));
 		}
 		
-		if (ModConfig.confEnderEnabled) {
-			registry.addRecipeCategories(new EnderCrafterCategory(helper));
-		}
+		// 删除整个 if (ModConfig.confEnderEnabled) 块
 	}
 	
 	@Override
@@ -120,14 +118,6 @@ public class CompatJEI implements IModPlugin {
 			registry.addRecipes(CompressorRecipeManager.getInstance().getRecipes(), CompressorCraftingCategory.UID);
 		}
 		
-		if (ModConfig.confEnderEnabled) {
-			registry.addRecipeCatalyst(new ItemStack(ModBlocks.blockEnderCrafter), EnderCrafterCategory.UID);
-			registry.addRecipeCatalyst(new ItemStack(ModBlocks.blockEnderAlternator), EnderCrafterCategory.UID);
-			registry.handleRecipes(TableRecipeShaped.class, recipe -> new TableShapedWrapper(helpers, recipe), EnderCrafterCategory.UID);
-			registry.handleRecipes(TableRecipeShapeless.class, recipe -> new TableShapelessWrapper(helpers, recipe), EnderCrafterCategory.UID);
-			registry.addRecipeClickArea(GuiEnderCrafter.class, 90, 36, 21, 14, EnderCrafterCategory.UID);
-			registry.addRecipes(EnderCrafterRecipeManager.getInstance().getRecipes(), EnderCrafterCategory.UID);
-			transfer.addRecipeTransferHandler(ContainerEnderCrafter.class, EnderCrafterCategory.UID, 1, 9, 10, 36);
-		}
+		// 删除整个 if (ModConfig.confEnderEnabled) 块
 	}
 }
