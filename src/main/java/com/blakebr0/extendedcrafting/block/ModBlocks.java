@@ -15,7 +15,6 @@ import net.minecraft.block.material.Material;
 @AddonReferenced
 public class ModBlocks {
 
-	public static final BlockStorage blockStorage = new BlockStorage();
 	public static final BlockFrame blockFrame = new BlockFrame();
 
 	public static final BlockPedestal blockPedestal = new BlockPedestal();
@@ -35,24 +34,16 @@ public class ModBlocks {
 
 	public static void init() {
 		final ModRegistry registry = ExtendedCrafting.REGISTRY;
-
-		// 只注册黑铁块矿石字典
-		registry.register(blockStorage, "storage", new ItemBlockStorage(blockStorage), 
-				Ore.of(0, "blockBlackIron"));
+		
 		registry.register(blockFrame, "frame");
-
 		registry.register(blockPedestal, "pedestal");
 		registry.register(blockCraftingCore, "crafting_core");
-
 		registry.register(blockAutomationInterface, "interface");
-		
 		registry.register(blockBasicTable, "table_basic");
 		registry.register(blockAdvancedTable, "table_advanced");
 		registry.register(blockEliteTable, "table_elite");
 		registry.register(blockUltimateTable, "table_ultimate");
-
 		registry.register(blockCompressor, "compressor");
-		
 		registry.register(blockEnderAlternator, "ender_alternator");
 		registry.register(blockEnderCrafter, "ender_crafter");
 	}
