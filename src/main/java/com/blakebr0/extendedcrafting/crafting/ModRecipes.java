@@ -21,31 +21,9 @@ public class ModRecipes {
 
 						'D', "gemDiamond",
 						'L', new ItemStack(Items.DYE, 1, 4),
-						'N', Items.NETHER_STAR,  // 原来是 ItemMaterial.itemNetherStarNugget
+						'N', Items.NETHER_STAR,
 						'I', "ingotIron",
 						'G', "ingotGold"
-				)
-		);
-
-		EnderCrafterRecipeManager.getInstance().addShaped(ItemMaterial.itemEnderStar, ModConfig.confEnderTimeRequired,
-				CraftingHelper.parseShaped(
-						" E ",
-						"ENE",
-						" E ",
-
-						'E', Items.ENDER_EYE,
-						'N', Items.NETHER_STAR
-				)
-		);
-
-		EnderCrafterRecipeManager.getInstance().addShaped(new ItemStack(ModItems.itemMaterial, 4, 48), ModConfig.confEnderTimeRequired,
-				CraftingHelper.parseShaped(
-						" I ",
-						"INI",
-						" I ",
-
-						'I', ItemMaterial.itemEnderIngot,
-						'N', ItemMaterial.itemEnderStar
 				)
 		);
 
