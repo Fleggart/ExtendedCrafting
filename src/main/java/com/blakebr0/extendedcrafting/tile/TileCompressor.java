@@ -2,8 +2,6 @@ package com.blakebr0.extendedcrafting.tile;
 
 import com.blakebr0.cucumber.energy.EnergyStorageCustom;
 import com.blakebr0.cucumber.helper.StackHelper;
-import com.blakebr0.extendedcrafting.compat.gregtech.IGTCapHolder;
-import com.blakebr0.extendedcrafting.compat.gregtech.IGTEnergyContainer;
 import com.blakebr0.extendedcrafting.config.ModConfig;
 import com.blakebr0.extendedcrafting.crafting.CompressorRecipe;
 import com.blakebr0.extendedcrafting.crafting.CompressorRecipeManager;
@@ -16,7 +14,6 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
@@ -24,11 +21,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Optional.Interface(modid = "gregtech",
-		iface = "com.blakebr0.extendedcrafting.compat.gregtech.IGTEnergyContainer")
 public class TileCompressor
 		extends TileInventoryBase
-		implements ISidedInventory, ITickable, IGTEnergyContainer, IGTCapHolder {
+		implements ISidedInventory, ITickable {
 
 	private NonNullList<ItemStack> inventoryStacks = NonNullList.withSize(3, ItemStack.EMPTY);
 	private final EnergyStorageCustom energy = new EnergyStorageCustom(ModConfig.confCompressorRFCapacity);
@@ -234,7 +229,6 @@ public class TileCompressor
 		return 0;
 	}
 
-	@Override
 	public EnergyStorageCustom getEnergy() {
 		return this.energy;
 	}
@@ -351,13 +345,8 @@ public class TileCompressor
 			return (T) new SidedInvWrapper(this, facing);
 		} else if (capability == CapabilityEnergy.ENERGY) {
 			return CapabilityEnergy.ENERGY.cast(this.energy);
-		} else if (ModConfig.confCompressorAcceptGTEU) {
-			T cap = getGTCapability(capability);
-			if (cap != null) {
-				return cap;
-			}
 		}
 
 		return super.getCapability(capability, facing);
 	}
-}
+		}
