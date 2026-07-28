@@ -2,8 +2,6 @@ package com.blakebr0.extendedcrafting.tile;
 
 import com.blakebr0.cucumber.energy.EnergyStorageCustom;
 import com.blakebr0.cucumber.helper.StackHelper;
-import com.blakebr0.extendedcrafting.compat.gregtech.IGTCapHolder;
-import com.blakebr0.extendedcrafting.compat.gregtech.IGTEnergyContainer;
 import com.blakebr0.extendedcrafting.config.ModConfig;
 import com.blakebr0.extendedcrafting.crafting.endercrafter.EnderCrafterRecipeManager;
 import com.blakebr0.extendedcrafting.crafting.table.TableCrafting;
@@ -23,7 +21,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -36,11 +33,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-@Optional.Interface(modid = "gregtech",
-		iface = "com.blakebr0.extendedcrafting.compat.gregtech.IGTEnergyContainer")
 public class TileAutomationInterface
 		extends TileInventoryBase
-		implements ITickable, ISidedInventory, IGTEnergyContainer, IGTCapHolder {
+		implements ITickable, ISidedInventory {
 
 	private final ItemStackHandler inventory = new StackHandler();
 	private final ItemStackHandler recipe = new FakeRecipeHandler();
@@ -365,11 +360,6 @@ public class TileAutomationInterface
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new SidedInvWrapper(this, side));
 		} else if (capability == CapabilityEnergy.ENERGY) {
 			return CapabilityEnergy.ENERGY.cast(this.energy);
-		} else if (ModConfig.confInterfaceAcceptGTEU) {
-			T cap = getGTCapability(capability);
-			if (cap != null) {
-				return cap;
-			}
 		}
 
 		return super.getCapability(capability, side);
@@ -387,7 +377,6 @@ public class TileAutomationInterface
 		return this.result;
 	}
 
-	@Override
 	public EnergyStorageCustom getEnergy() {
 		return this.energy;
 	}
