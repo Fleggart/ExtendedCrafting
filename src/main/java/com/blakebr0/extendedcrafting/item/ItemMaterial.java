@@ -18,11 +18,12 @@ import java.util.Set;
 
 public class ItemMaterial extends ItemMeta {
 	
-	// 移除了所有Nugget的元数据
-	public static final Set<Integer> ultimateMetas = new HashSet<>(Arrays.asList(13, 19, 32, 40, 48));
+	// 移除了 40 (ender_star)
+	public static final Set<Integer> ultimateMetas = new HashSet<>(Arrays.asList(13, 19, 32, 33, 41, 48, 49));
 
 	// ===== 基础材料 =====
 	public static ItemStack itemBlackIron;
+	public static ItemStack itemBlackIronNugget;
 	public static ItemStack itemBlackIronSlate;
 	public static ItemStack itemBlackIronRod;
 
@@ -46,12 +47,19 @@ public class ItemMaterial extends ItemMeta {
 
 	// ===== 锭 =====
 	public static ItemStack itemCrystaltineIngot;
+	public static ItemStack itemCrystaltineNugget;
 	public static ItemStack itemTheUltimateIngot;
+	public static ItemStack itemTheUltimateNugget;
 	public static ItemStack itemEnderIngot;
+	public static ItemStack itemEnderNugget;
+	
+	public static ItemStack itemEnderStarNugget;
 	public static ItemStack itemEnhancedEnderIngot;
-
-	// ===== 星 =====
-	public static ItemStack itemEnderStar;
+	public static ItemStack itemEnhancedEnderNugget;
+	
+	public static ItemStack itemDiamondNugget;
+	public static ItemStack itemEmeraldNugget;
+	public static ItemStack itemNetherStarNugget;
 
 	public ItemMaterial() {
 		super("ec.material", ExtendedCrafting.REGISTRY);
@@ -60,14 +68,13 @@ public class ItemMaterial extends ItemMeta {
 
 	@Override
 	public void init() {
-		// 黑铁系列
 		itemBlackIron = addItem(0, "black_iron", "ingotBlackIron");
+		itemBlackIronNugget = addItem(1, "black_iron_nugget", "nuggetBlackIron");
 		itemBlackIronSlate = addItem(2, "black_iron_slate");
 		itemBlackIronRod = addItem(3, "black_iron_rod");
 
 		itemLuminessence = addItem(7, "luminessence");
 
-		// 催化剂
 		itemBasicCatalyst = addItem(8, "basic_catalyst");
 		itemAdvancedCatalyst = addItem(9, "advanced_catalyst");
 		itemEliteCatalyst = addItem(10, "elite_catalyst");
@@ -75,7 +82,6 @@ public class ItemMaterial extends ItemMeta {
 		itemCrystaltineCatalyst = addItem(12, "crystaltine_catalyst");
 		itemTheUltimateCatalyst = addItem(13, "ultimater_catalyst");
 
-		// 组件
 		itemBasicComponent = addItem(14, "basic_component");
 		itemAdvancedComponent = addItem(15, "advanced_component");
 		itemEliteComponent = addItem(16, "elite_component");
@@ -83,14 +89,25 @@ public class ItemMaterial extends ItemMeta {
 		itemCrystaltineComponent = addItem(18, "crystaltine_component");
 		itemTheUltimateComponent = addItem(19, "ultimater_component");
 
-		// 锭（移除了所有Nugget）
 		itemCrystaltineIngot = addItem(24, "crystaltine_ingot", "ingotCrystaltine");
+		itemCrystaltineNugget = addItem(25, "crystaltine_nugget", "nuggetCrystaltine");
+		
 		itemTheUltimateIngot = addItem(32, "ultimate_ingot", "ingotUltimate");
+		itemTheUltimateNugget = addItem(33, "ultimate_nugget", "nuggetUltimate");
+		
 		itemEnderIngot = addItem(36, "ender_ingot");
+		itemEnderNugget = addItem(37, "ender_nugget");
+		
+		
+		
+		itemEnderStarNugget = addItem(41, "ender_star_nugget");
+		
 		itemEnhancedEnderIngot = addItem(48, "enhanced_ender_ingot");
-
-		// 星
-		itemEnderStar = addItem(40, "ender_star");
+		itemEnhancedEnderNugget = addItem(49, "enhanced_ender_nugget");
+				
+		itemDiamondNugget = addItem(128, "diamond_nugget", "nuggetDiamond");
+		itemEmeraldNugget = addItem(129, "emerald_nugget", "nuggetEmerald");
+		itemNetherStarNugget = addItem(140, "nether_star_nugget", "nuggetNetherStar");
 	}
 	
 	@Override
@@ -115,6 +132,9 @@ public class ItemMaterial extends ItemMeta {
 			break;
 		case 32:
 			tooltip.add(Colors.ITALICS + Utils.localize("tooltip.ec.ultimate_ingot"));
+			break;
+		case 33:
+			tooltip.add(Colors.ITALICS + Utils.localize("tooltip.ec.ultimate_nugget"));
 			break;
 		default:
 			break;
