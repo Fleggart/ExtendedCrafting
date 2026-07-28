@@ -36,9 +36,9 @@ public class ModBlocks {
 	public static void init() {
 		final ModRegistry registry = ExtendedCrafting.REGISTRY;
 
+		// 只注册黑铁块矿石字典
 		registry.register(blockStorage, "storage", new ItemBlockStorage(blockStorage), 
-				Ore.of(0, "blockBlackIron"), Ore.of(1, "blockLuminessence"), Ore.of(2, "blockNetherStar"),
-				Ore.of(3, "blockCrystaltine"), Ore.of(4, "blockUltimate"));
+				Ore.of(0, "blockBlackIron"));
 		registry.register(blockFrame, "frame");
 
 		registry.register(blockPedestal, "pedestal");
