@@ -48,12 +48,12 @@ public class BlockStorage extends BlockBase implements IModelHelper {
 
 	@Override
 	public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
-		return this.getMetaFromState(state) == 1 ? SoundType.STONE : SoundType.METAL;
+		return SoundType.METAL;
 	}
 	
 	@Override
 	public Material getMaterial(IBlockState state) {
-		return this.getMetaFromState(state) == 1 ? Material.ROCK : Material.IRON;
+		return Material.IRON;
 	}
 	
 	@Override
@@ -63,16 +63,16 @@ public class BlockStorage extends BlockBase implements IModelHelper {
 
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
-		for (Type type : Type.values()) {
-			stacks.add(new ItemStack(this, 1, type.getMetadata()));
-		}
+		stacks.add(new ItemStack(this, 1, Type.BLACK_IRON.getMetadata()));
 	}
 
 	@Override
 	public void initModels() {
-		for (Type type : Type.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), type.getMetadata(), new ModelResourceLocation(Objects.requireNonNull(getRegistryName()).toString() + "_" + Type.byMetadata(type.getMetadata()).getName()));
-		}
+		ModelLoader.setCustomModelResourceLocation(
+			Item.getItemFromBlock(this), 
+			Type.BLACK_IRON.getMetadata(), 
+			new ModelResourceLocation(Objects.requireNonNull(getRegistryName()).toString() + "_" + Type.BLACK_IRON.getName())
+		);
 	}
 
 	@Override
@@ -92,21 +92,12 @@ public class BlockStorage extends BlockBase implements IModelHelper {
 	
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag advanced) {
-		if (stack.getMetadata() == 4) {
-			tooltip.add(Colors.ITALICS + Utils.localize("tooltip.ec.ultimate_block"));
-		}
+		// 移除了终极块的提示信息
 	}
 
 	public enum Type implements IStringSerializable {
 
-		BLACK_IRON(0, "black_iron"),
-		LUMINESSENCE(1, "luminessence"),
-		NETHER_STAR(2, "nether_star"),
-		CRYSTALTINE(3, "crystaltine"),
-		ULTIMATE(4, "ultimate"),
-		ENDER(5, "ender"),
-		ENDER_STAR(6, "ender_star"),
-		ENHANCED_ENDER(7, "enhanced_ender");
+		BLACK_IRON(0, "black_iron");
 
 		private static final Type[] META_LOOKUP = new Type[values().length];
 		private final int meta;
