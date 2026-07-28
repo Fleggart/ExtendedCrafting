@@ -28,16 +28,6 @@ import static com.blakebr0.extendedcrafting.compat.WailaDataProvider.TooltipProv
 public class WailaDataProvider implements IWailaDataProvider {
 
 	public static void callbackRegister(IWailaRegistrar registrar) {
-		// 删除 Lamp 的注册代码
-		// registrar.registerBodyProvider(of((stack, tooltip, data, config) ->
-		//                 tooltip.add(Utils.localize("tooltip.ec.lamp_" + BlockLamp.Type.byMetadata(data.getMetadata()).getName()))),
-		//         BlockLamp.class
-		// );
-
-		registrar.registerBodyProvider(of((stack, tooltip, data, config) ->
-						tooltip.add(Utils.localize("tooltip.ec.trimmed_" + BlockTrimmed.Type.byMetadata(data.getMetadata()).getName()))),
-				BlockTrimmed.class
-		);
 
 		registrar.registerBodyProvider(checkTile(TilePedestal.class, (stack, tooltip, data, config, pedestal) -> {
 					ItemStack result = pedestal.getStack();
