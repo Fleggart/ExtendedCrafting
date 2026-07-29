@@ -22,7 +22,6 @@ public class ItemMaterial extends ItemMeta {
 
 	public static ItemStack itemBlackIron;
 	public static ItemStack itemBlackIronSlate;
-	public static ItemStack itemLuminessence;
 
 	public static ItemStack itemBasicCatalyst;
 	public static ItemStack itemAdvancedCatalyst;
@@ -45,7 +44,6 @@ public class ItemMaterial extends ItemMeta {
 	public void init() {
 		itemBlackIron = addItem(0, "black_iron", "ingotBlackIron");
 		itemBlackIronSlate = addItem(2, "black_iron_slate");
-		itemLuminessence = addItem(7, "luminessence");
 
 		itemBasicCatalyst = addItem(8, "basic_catalyst");
 		itemAdvancedCatalyst = addItem(9, "advanced_catalyst");
