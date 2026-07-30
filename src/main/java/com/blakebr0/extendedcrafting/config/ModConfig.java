@@ -16,10 +16,7 @@ public class ModConfig {
 	
 	public static boolean confEnergyInWaila;
 
-	public static boolean confCraftingCoreEnabled;
-	public static int confCraftingCoreRFCapacity;
-	public static int confCraftingCoreRFRate;
-	public static boolean confCraftingCoreAcceptGTEU;
+	
 
 	public static boolean confInterfaceEnabled;
 	public static int confInterfaceRFCapacity;
@@ -68,12 +65,7 @@ public class ModConfig {
 	
 		confEnergyInWaila = config.getBoolean("energy_in_waila", category, true, "Should WAILA show the current energy of Extended Crafting machines?");
 		
-		category = "combination_crafting";
-		config.setCategoryComment(category, "Settings for the Crafting Core.");
-		confCraftingCoreEnabled = config.getBoolean("enabled", category, true, "Should the Crafting Core and Pedestal be enabled?");
-		confCraftingCoreRFCapacity = config.getInt("energy_capacity", category, 5000000, 0, Integer.MAX_VALUE, "How much FE the Crafting Core should hold.");
-		confCraftingCoreRFRate = config.getInt("energy_rate", category, 500, 0, Integer.MAX_VALUE, "How much FE/t the Crafting Core should use when crafting by default.");
-		confCraftingCoreAcceptGTEU = config.getBoolean("accept_gteu", category, false, "Should the Crafting Core accept GTEU?");
+	
 
 		category = "automation_interface";
 		config.setCategoryComment(category, "Settings for the Automation Interface.");
@@ -118,8 +110,8 @@ public class ModConfig {
 	
 	private static void updateConfig() {
 		if (config.hasCategory("settings")) {
-			updateProperty("crafting_core_rf_capacity", "energy_capacity", "combination_crafting");
-			updateProperty("crafting_core_rf_rate", "energy_rate", "combination_crafting");
+	
+			
 			updateProperty("compressor_rf_capacity", "energy_capacity", "quantum_compression");
 			updateProperty("compressor_rf_rate", "energy_rate", "quantum_compression");
 			updateProperty("interface_rf_capacity", "energy_capacity", "automation_interface");
