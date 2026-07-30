@@ -1,8 +1,6 @@
 package com.blakebr0.extendedcrafting.crafting.table;
 
 import com.blakebr0.cucumber.helper.RecipeHelper;
-import com.blakebr0.extendedcrafting.config.ModConfig;
-import com.blakebr0.extendedcrafting.crafting.endercrafter.IEnderCraftingRecipe;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -14,7 +12,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.Function;
 
-public abstract class TableRecipeBase implements ITieredRecipe, IEnderCraftingRecipe {
+public abstract class TableRecipeBase implements ITieredRecipe {
 
 	protected final ItemStack output;
 	protected final NonNullList<Ingredient> input;
@@ -22,7 +20,6 @@ public abstract class TableRecipeBase implements ITieredRecipe, IEnderCraftingRe
 	protected final ResourceLocation group;
 	protected final int tier;
 	protected Map<Integer, Function<ItemStack, ItemStack>> transformers;
-	public int enderCrafterRecipeTimeRequired = ModConfig.confEnderTimeRequired;
 
 	public TableRecipeBase(int tier, ItemStack result, NonNullList<Ingredient> ingredients) {
 		this.group = RecipeHelper.EMPTY_GROUP;
@@ -68,11 +65,6 @@ public abstract class TableRecipeBase implements ITieredRecipe, IEnderCraftingRe
 
 	public boolean requiresTier() {
 		return this.tier > 0;
-	}
-
-	@Override
-	public int getEnderCrafterTimeSeconds() {
-		return this.enderCrafterRecipeTimeRequired;
 	}
 
 	@Override
