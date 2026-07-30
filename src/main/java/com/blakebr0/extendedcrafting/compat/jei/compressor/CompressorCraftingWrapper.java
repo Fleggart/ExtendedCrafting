@@ -8,7 +8,6 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -35,12 +34,8 @@ public class CompressorCraftingWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		List<List<ItemStack>> stacks = new ArrayList<>();
-		
-		stacks.add(Arrays.asList(recipe.getInput().getMatchingStacks()));
-		stacks.add(Arrays.asList(recipe.getCatalyst().getMatchingStacks()));
-		
-		ingredients.setInputLists(VanillaTypes.ITEM, stacks);
+		// 只有输入和输出，不再包含催化剂
+		ingredients.setInput(VanillaTypes.ITEM, recipe.getInput().getMatchingStacks()[0]);
 		ingredients.setOutput(VanillaTypes.ITEM, this.recipe.getOutput());
 	}
 }
