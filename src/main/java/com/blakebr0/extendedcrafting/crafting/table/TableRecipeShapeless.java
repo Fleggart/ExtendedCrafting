@@ -1,7 +1,6 @@
 package com.blakebr0.extendedcrafting.crafting.table;
 
 import com.blakebr0.cucumber.helper.RecipeHelper;
-import com.blakebr0.extendedcrafting.config.ModConfig;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -21,7 +20,6 @@ public class TableRecipeShapeless extends TableRecipeBase {
 	protected final ResourceLocation group;
 	protected final int tier;
 	protected Map<Integer, Function<ItemStack, ItemStack>> transformers;
-	public int enderCrafterRecipeTimeRequired = ModConfig.confEnderTimeRequired;
 
 	public TableRecipeShapeless(int tier, ItemStack result, NonNullList<Ingredient> recipe) {
 		super(tier, result, recipe);
