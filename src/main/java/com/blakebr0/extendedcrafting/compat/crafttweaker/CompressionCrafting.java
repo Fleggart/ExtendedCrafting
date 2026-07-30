@@ -15,13 +15,24 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class CompressionCrafting {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output, IIngredient input, int inputCount, IIngredient catalyst, int powerCost) {
-		CraftTweakerAPI.apply(new Add(new CompressorRecipe(CraftTweakerMC.getItemStack(output), CraftTweakerUtils.toIngredient(input), inputCount, CraftTweakerUtils.toIngredient(catalyst), false, powerCost)));
+	public static void addRecipe(IItemStack output, IIngredient input, int inputCount, int powerCost) {
+		CraftTweakerAPI.apply(new Add(new CompressorRecipe(
+			CraftTweakerMC.getItemStack(output), 
+			CraftTweakerUtils.toIngredient(input), 
+			inputCount, 
+			powerCost
+		)));
 	}
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output, IIngredient input, int inputCount, IIngredient catalyst, int powerCost, int powerRate) {
-		CraftTweakerAPI.apply(new Add(new CompressorRecipe(CraftTweakerMC.getItemStack(output), CraftTweakerUtils.toIngredient(input), inputCount, CraftTweakerUtils.toIngredient(catalyst), false, powerCost, powerRate)));
+	public static void addRecipe(IItemStack output, IIngredient input, int inputCount, int powerCost, int powerRate) {
+		CraftTweakerAPI.apply(new Add(new CompressorRecipe(
+			CraftTweakerMC.getItemStack(output), 
+			CraftTweakerUtils.toIngredient(input), 
+			inputCount, 
+			powerCost, 
+			powerRate
+		)));
 	}
 
 	@ZenMethod
