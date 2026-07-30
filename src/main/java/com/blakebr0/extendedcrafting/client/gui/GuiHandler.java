@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
 
-    public static final int CRAFTING_CORE = 0;
     public static final int AUTOMATION_INTERFACE = 6;
     public static final int BASIC_TABLE = 7;
     public static final int ADVANCED_TABLE = 8;
@@ -27,8 +26,6 @@ public class GuiHandler implements IGuiHandler {
             return null;
         }
         switch (ID) {
-            case CRAFTING_CORE:
-                return new GuiCraftingCore((TileCraftingCore) tile, new ContainerCraftingCore(player.inventory, (TileCraftingCore) tile));
             case AUTOMATION_INTERFACE:
                 return new GuiAutomationInterface(new ContainerAutomationInterface(player.inventory, (TileAutomationInterface) tile));
             case BASIC_TABLE:
@@ -53,8 +50,6 @@ public class GuiHandler implements IGuiHandler {
             return null;
         }
         switch (ID) {
-            case CRAFTING_CORE:
-                return new ContainerCraftingCore(player.inventory, (TileCraftingCore) tile);
             case AUTOMATION_INTERFACE:
                 return new ContainerAutomationInterface(player.inventory, (TileAutomationInterface) tile);
             case BASIC_TABLE:
