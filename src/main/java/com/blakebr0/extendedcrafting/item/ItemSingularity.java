@@ -147,10 +147,22 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
 			if (value instanceof ItemStack) {
 				ItemStack stack = (ItemStack) value;
 				if (!stack.isEmpty()) {
-					CompressorRecipeManager.getInstance().addRecipe(new ItemStack(this, 1, meta), CraftingHelper.getIngredient(value), ModConfig.confSingularityAmount, Ingredient.fromStacks(ItemSingularity.getCatalystStack()), false, ModConfig.confSingularityRF);
+					// 移除 catalyst 参数
+					CompressorRecipeManager.getInstance().addRecipe(
+						new ItemStack(this, 1, meta), 
+						CraftingHelper.getIngredient(value), 
+						ModConfig.confSingularityAmount, 
+						ModConfig.confSingularityRF
+					);
 				}
 			} else if (value instanceof String) {
-				CompressorRecipeManager.getInstance().addRecipe(new ItemStack(this, 1, meta), CraftingHelper.getIngredient(value), ModConfig.confSingularityAmount, Ingredient.fromStacks(ItemSingularity.getCatalystStack()), false, ModConfig.confSingularityRF);
+				// 移除 catalyst 参数
+				CompressorRecipeManager.getInstance().addRecipe(
+					new ItemStack(this, 1, meta), 
+					CraftingHelper.getIngredient(value), 
+					ModConfig.confSingularityAmount, 
+					ModConfig.confSingularityRF
+				);
 			} else {
 				ExtendedCrafting.LOGGER.error("Invalid material for singularity: " + value.toString());
 			}
