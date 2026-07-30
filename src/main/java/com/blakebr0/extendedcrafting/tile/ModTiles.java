@@ -31,8 +31,6 @@ public class ModTiles {
 			GameRegistry.registerTileEntity(TileCompressor.class, "EC_Compressor");
 		}
 		
-		if (ModConfig.confEnderEnabled) {
-			GameRegistry.registerTileEntity(TileEnderCrafter.class, Tags.MODID + "ender_crafter");
-		}
+		// TileEnderCrafter 已移除
 	}
 }
