@@ -1,16 +1,12 @@
 package com.blakebr0.extendedcrafting.block;
 
 import com.blakebr0.cucumber.registry.ModRegistry;
-import com.blakebr0.cucumber.registry.Ore;
 import com.blakebr0.extendedcrafting.ExtendedCrafting;
 import com.blakebr0.extendedcrafting.block.craftingtable.BlockAdvancedTable;
 import com.blakebr0.extendedcrafting.block.craftingtable.BlockBasicTable;
 import com.blakebr0.extendedcrafting.block.craftingtable.BlockEliteTable;
 import com.blakebr0.extendedcrafting.block.craftingtable.BlockUltimateTable;
-
 import com.blakebr0.extendedcrafting.lib.AddonReferenced;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 
 @AddonReferenced
 public class ModBlocks {
@@ -28,13 +24,9 @@ public class ModBlocks {
 	@AddonReferenced public static final BlockUltimateTable blockUltimateTable = new BlockUltimateTable();
 
 	public static final BlockCompressor blockCompressor = new BlockCompressor();
-	
-	// BlockEnderAlternator 已移除
-	@AddonReferenced public static final BlockEnderCrafter blockEnderCrafter = new BlockEnderCrafter();
 
 	public static void init() {
 		final ModRegistry registry = ExtendedCrafting.REGISTRY;
-		
 		registry.register(blockFrame, "frame");
 		registry.register(blockPedestal, "pedestal");
 		registry.register(blockCraftingCore, "crafting_core");
@@ -44,7 +36,5 @@ public class ModBlocks {
 		registry.register(blockEliteTable, "table_elite");
 		registry.register(blockUltimateTable, "table_ultimate");
 		registry.register(blockCompressor, "compressor");
-		// blockEnderAlternator 注册已移除
-		registry.register(blockEnderCrafter, "ender_crafter");
 	}
 }
