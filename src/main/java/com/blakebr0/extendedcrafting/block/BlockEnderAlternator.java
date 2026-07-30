@@ -39,6 +39,6 @@ public class BlockEnderAlternator extends BlockBase implements IEnableable {
 
 	@Override
 	public boolean isEnabled() {
-		return ModConfig.confEnderEnabled;
+		return true;  // Ender Alternator 始终启用
 	}
 }
