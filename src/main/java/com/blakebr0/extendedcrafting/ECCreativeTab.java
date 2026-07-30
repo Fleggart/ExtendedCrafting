@@ -11,13 +11,14 @@ import javax.annotation.Nonnull;
 
 public class ECCreativeTab extends CreativeTabs {
 
-	public ECCreativeTab() {
-		super(Tags.MODID);
-	}
+    public ECCreativeTab() {
+        super(Tags.MODID);
+    }
 
-	@Nonnull
-	@Override
-	public ItemStack createIcon() {
-		return ModConfig.confCraftingCoreEnabled ? new ItemStack(ModBlocks.blockCraftingCore) : new ItemStack(ModItems.itemMaterial);
-	}
+    @Nonnull
+    @Override
+    public ItemStack createIcon() {
+        return new ItemStack(ModBlocks.blockBasicTable);
+        
+    }
 }
