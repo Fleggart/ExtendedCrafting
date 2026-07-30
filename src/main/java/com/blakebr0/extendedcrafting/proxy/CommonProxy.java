@@ -4,9 +4,9 @@ import com.blakebr0.extendedcrafting.ExtendedCrafting;
 import com.blakebr0.extendedcrafting.Tags;
 import com.blakebr0.extendedcrafting.block.ModBlocks;
 import com.blakebr0.extendedcrafting.client.gui.GuiHandler;
-import com.blakebr0.extendedcrafting.compat.crafttweaker.CombinationCrafting;
-import com.blakebr0.extendedcrafting.compat.crafttweaker.CompressionCrafting;
-import com.blakebr0.extendedcrafting.compat.crafttweaker.TableCrafting;
+import com.blakebr0.extendedcrafting.compat.crafttweaker.CompressionCrafting;  // 保留压缩机
+import com.blakebr0.extendedcrafting.compat.crafttweaker.TableCrafting;         // 保留合成桌
+// import com.blakebr0.extendedcrafting.compat.crafttweaker.CombinationCrafting; // 删除这行
 import com.blakebr0.extendedcrafting.config.ModConfig;
 import com.blakebr0.extendedcrafting.crafting.ModRecipes;
 import com.blakebr0.extendedcrafting.item.ModItems;
@@ -30,38 +30,38 @@ import java.io.File;
 
 public class CommonProxy {
 
-	public void preInit(FMLPreInitializationEvent event) {
-		ModConfig.init(new File(event.getModConfigurationDirectory(), Tags.MODID + ".cfg"));
-		MinecraftForge.EVENT_BUS.register(new ModConfig());
+    public void preInit(FMLPreInitializationEvent event) {
+        ModConfig.init(new File(event.getModConfigurationDirectory(), Tags.MODID + ".cfg"));
+        MinecraftForge.EVENT_BUS.register(new ModConfig());
 
-		ModBlocks.init();
-		ModItems.init();
-		ModTiles.init();
+        ModBlocks.init();
+        ModItems.init();
+        ModTiles.init();
 
-		MinecraftForge.EVENT_BUS.register(ExtendedCrafting.REGISTRY);
-		MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(ExtendedCrafting.REGISTRY);
+        MinecraftForge.EVENT_BUS.register(this);
 
-		if (Loader.isModLoaded("crafttweaker")) {
-			CraftTweakerAPI.registerClass(TableCrafting.class);
-			CraftTweakerAPI.registerClass(CombinationCrafting.class);
-			CraftTweakerAPI.registerClass(CompressionCrafting.class);
-		}
+        if (Loader.isModLoaded("crafttweaker")) {
+            CraftTweakerAPI.registerClass(TableCrafting.class);
+            // CraftTweakerAPI.registerClass(CombinationCrafting.class); // 删除这行
+            CraftTweakerAPI.registerClass(CompressionCrafting.class);
+        }
 
-		FMLCommonHandler.instance().registerCrashCallable(new AddonReferenced.CrashCallable());
-	}
+        FMLCommonHandler.instance().registerCrashCallable(new AddonReferenced.CrashCallable());
+    }
 
-	public void init(FMLInitializationEvent event) {
-		NetworkThingy.init();
-		NetworkRegistry.INSTANCE.registerGuiHandler(ExtendedCrafting.instance, new GuiHandler());
-		FMLInterModComms.sendMessage("waila", "register", "com.blakebr0.extendedcrafting.compat.WailaDataProvider.callbackRegister");
-	}
+    public void init(FMLInitializationEvent event) {
+        NetworkThingy.init();
+        NetworkRegistry.INSTANCE.registerGuiHandler(ExtendedCrafting.instance, new GuiHandler());
+        FMLInterModComms.sendMessage("waila", "register", "com.blakebr0.extendedcrafting.compat.WailaDataProvider.callbackRegister");
+    }
 
-	public void postInit(FMLPostInitializationEvent event) {
-		// ModGuide.setup(); // 这行已经是被注释掉的，保持不变
-	}
+    public void postInit(FMLPostInitializationEvent event) {
+        // ModGuide.setup();
+    }
 
-	@SubscribeEvent
-	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		ModRecipes.init();
-	}
+    @SubscribeEvent
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        ModRecipes.init();
+    }
 }
