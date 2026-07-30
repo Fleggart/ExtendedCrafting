@@ -2,7 +2,6 @@ package com.blakebr0.extendedcrafting.client.gui;
 
 import com.blakebr0.cucumber.helper.ResourceHelper;
 import com.blakebr0.cucumber.util.Utils;
-import com.blakebr0.extendedcrafting.ExtendedCrafting;
 import com.blakebr0.extendedcrafting.Tags;
 import com.blakebr0.extendedcrafting.client.container.ContainerCompressor;
 import com.blakebr0.extendedcrafting.crafting.CompressorRecipe;
@@ -84,13 +83,13 @@ public class GuiCompressor extends GuiContainer {
 		this.buttonList.add(new GuiButton(1, this.guiLeft + 69, this.guiTop + 29, 11, 9, "") {
 			@Override
 			public void drawButton(@Nullable Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
+				// 隐藏按钮绘制，只保留点击区域
 			}
 		});
 		this.buttonList.add(new GuiButton(2, this.guiLeft + 91, this.guiTop + 74, 7, 10, "") {
 			@Override
 			public void drawButton(@Nullable Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
+				// 隐藏按钮绘制，只保留点击区域
 			}
 		});
 	}
@@ -162,7 +161,6 @@ public class GuiCompressor extends GuiContainer {
 		if (mouseX > guiLeft + 68 && mouseX < guiLeft + 79 && mouseY > guiTop + 28 && mouseY < guiTop + 39) {
 			this.drawTexturedModalRect(x + 68, y + 30, 194, 32, 11, 9);
 		}
-
 
 		if(this.tile == null) return;
 		if (mouseX > guiLeft + 90 && mouseX < guiLeft + 98 && mouseY > guiTop + 73 && mouseY < guiTop + 84) {
