@@ -17,9 +17,9 @@ public class CompressorRecipeManager {
 		return INSTANCE;
 	}
 	
-	public void addRecipe(ItemStack output, Ingredient input, int inputCount, Ingredient catalyst, boolean consumeCatalyst, int powerCost) {
+	public void addRecipe(ItemStack output, Ingredient input, int inputCount, int powerCost) {
 		if (ModConfig.confCompressorEnabled) {
-			this.recipes.add(new CompressorRecipe(output, input, inputCount, catalyst, consumeCatalyst, powerCost));
+			this.recipes.add(new CompressorRecipe(output, input, inputCount, powerCost));
 		}
 	}
 
