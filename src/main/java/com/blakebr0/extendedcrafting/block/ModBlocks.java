@@ -29,8 +29,8 @@ public class ModBlocks {
 
 	public static final BlockCompressor blockCompressor = new BlockCompressor();
 	
-	public static final BlockEnderAlternator blockEnderAlternator = new BlockEnderAlternator();
-	// BlockEnderCrafter 已移除
+	// BlockEnderAlternator 已移除
+	@AddonReferenced public static final BlockEnderCrafter blockEnderCrafter = new BlockEnderCrafter();
 
 	public static void init() {
 		final ModRegistry registry = ExtendedCrafting.REGISTRY;
@@ -44,7 +44,7 @@ public class ModBlocks {
 		registry.register(blockEliteTable, "table_elite");
 		registry.register(blockUltimateTable, "table_ultimate");
 		registry.register(blockCompressor, "compressor");
-		registry.register(blockEnderAlternator, "ender_alternator");
-		// blockEnderCrafter 已移除
+		// blockEnderAlternator 注册已移除
+		registry.register(blockEnderCrafter, "ender_crafter");
 	}
 }
