@@ -1,7 +1,6 @@
 package com.blakebr0.extendedcrafting.client.container;
 
 import com.blakebr0.cucumber.inventory.slot.SlotOutput;
-import com.blakebr0.cucumber.inventory.slot.SlotSingle;
 import com.blakebr0.extendedcrafting.tile.TileCompressor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -18,7 +17,6 @@ public class ContainerCompressor extends Container {
 
 		this.addSlotToContainer(new SlotOutput(tile, 0, 135, 48));
 		this.addSlotToContainer(new Slot(tile, 1, 65, 48));
-		this.addSlotToContainer(new SlotSingle(tile, 2, 38, 48));
 
 		for (int i = 0; i < 3; ++i) {
 			for (int j = 0; j < 9; ++j) {
@@ -40,24 +38,23 @@ public class ContainerCompressor extends Container {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (slotNumber < 3) {
-				if (!this.mergeItemStack(itemstack1, 3, 39, true)) {
+			if (slotNumber < 2) {
+				if (!this.mergeItemStack(itemstack1, 2, 38, true)) {
 					return ItemStack.EMPTY;
 				}
-				
 				slot.onSlotChange(itemstack1, itemstack);
 			} else {
 				ItemStack inputStack = this.inventorySlots.get(1).getStack();
-                if (inputStack.isEmpty() || (inputStack.isItemEqual(itemstack1) && inputStack.getCount() < inputStack.getMaxStackSize())) {
+				if (inputStack.isEmpty() || (inputStack.isItemEqual(itemstack1) && inputStack.getCount() < inputStack.getMaxStackSize())) {
 					if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
 						return ItemStack.EMPTY;
 					}
 				} else if (slotNumber < 30) {
-					if (!this.mergeItemStack(itemstack1, 30, 39, false)) {
+					if (!this.mergeItemStack(itemstack1, 30, 38, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (slotNumber < 39) {
-					if (!this.mergeItemStack(itemstack1, 3, 30, false)) {
+				} else if (slotNumber < 38) {
+					if (!this.mergeItemStack(itemstack1, 2, 30, false)) {
 						return ItemStack.EMPTY;
 					}
 				}
@@ -83,5 +80,4 @@ public class ContainerCompressor extends Container {
 	public boolean canInteractWith(EntityPlayer player) {
 		return this.tile.isUsableByPlayer(player);
 	}
-
 }
