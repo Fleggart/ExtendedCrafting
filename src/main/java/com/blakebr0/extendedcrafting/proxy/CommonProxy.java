@@ -6,7 +6,6 @@ import com.blakebr0.extendedcrafting.block.ModBlocks;
 import com.blakebr0.extendedcrafting.client.gui.GuiHandler;
 import com.blakebr0.extendedcrafting.compat.crafttweaker.CombinationCrafting;
 import com.blakebr0.extendedcrafting.compat.crafttweaker.CompressionCrafting;
-// 删除这一行: import com.blakebr0.extendedcrafting.compat.crafttweaker.EnderCrafting;
 import com.blakebr0.extendedcrafting.compat.crafttweaker.TableCrafting;
 import com.blakebr0.extendedcrafting.config.ModConfig;
 import com.blakebr0.extendedcrafting.crafting.ModRecipes;
@@ -46,7 +45,6 @@ public class CommonProxy {
 			CraftTweakerAPI.registerClass(TableCrafting.class);
 			CraftTweakerAPI.registerClass(CombinationCrafting.class);
 			CraftTweakerAPI.registerClass(CompressionCrafting.class);
-			// 删除这一行: CraftTweakerAPI.registerClass(EnderCrafting.class);
 		}
 
 		FMLCommonHandler.instance().registerCrashCallable(new AddonReferenced.CrashCallable());
