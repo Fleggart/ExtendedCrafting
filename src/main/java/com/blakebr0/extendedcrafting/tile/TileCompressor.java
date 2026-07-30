@@ -25,7 +25,7 @@ public class TileCompressor
 		extends TileInventoryBase
 		implements ISidedInventory, ITickable {
 
-	private NonNullList<ItemStack> inventoryStacks = NonNullList.withSize(3, ItemStack.EMPTY);
+	private NonNullList<ItemStack> inventoryStacks = NonNullList.withSize(2, ItemStack.EMPTY); // 减少到2个槽位
 	private final EnergyStorageCustom energy = new EnergyStorageCustom(ModConfig.confCompressorRFCapacity);
 	private ItemStack materialStack = ItemStack.EMPTY;
 	private int materialCount;
@@ -47,7 +47,6 @@ public class TileCompressor
 				}
 			}
 		}
-
 		return valid;
 	}
 
@@ -60,9 +59,6 @@ public class TileCompressor
 			ItemStack output = this.getStackInSlot(0);
 			ItemStack input = this.getStackInSlot(1);
 
-			// Update the input item and materialStack before finding the recipe to prevent returning a null recipe
-			// on the first tick, as materialStack would be empty. This would become infinite failure of finding a recipe
-			// due to materialStack clearing on failed recipe
 			if(!input.isEmpty()) {
 				if(this.materialStack.isEmpty()) {
 					this.materialStack = input.copy();
@@ -71,7 +67,6 @@ public class TileCompressor
 			}
 
 			CompressorRecipe recipe = getRecipe();
-
 
 			// Consuming Input Items
 			if (!input.isEmpty() && (!this.inputLimit || (recipe != null && this.materialCount < recipe.getInputCount()))) {
@@ -86,7 +81,6 @@ public class TileCompressor
 					mark = true;
 				}
 			}
-			//Invalidate the cached item and marked state on unsuccessful recipe retrieval
 			else if(mark) {
 				this.materialStack = ItemStack.EMPTY;
 			}
@@ -100,10 +94,6 @@ public class TileCompressor
 						ItemStack recipeOutput = recipe.getOutput();
 						if ((output.isEmpty() || StackHelper.areStacksEqual(output, recipeOutput)) && output.getCount() < recipeOutput.getMaxStackSize()) {
 							this.addStackToSlot(0, recipe.getOutput());
-							if (recipe.consumeCatalyst()) {
-								StackHelper.decrease(this.getStackInSlot(2), 1, false);
-							}
-
 							this.progress = 0;
 							this.materialCount -= recipe.getInputCount();
 
@@ -137,7 +127,6 @@ public class TileCompressor
 			}
 		}
 
-		// Update Energy amount
 		if (this.oldEnergy != this.energy.getEnergyStored()) {
 			this.oldEnergy = this.energy.getEnergyStored();
 			mark = true;
@@ -152,13 +141,9 @@ public class TileCompressor
 	public CompressorRecipe getRecipe() {
 		List<CompressorRecipe> recipes = this.getValidRecipes(this.materialStack);
 		if (!recipes.isEmpty()) {
-			for (CompressorRecipe recipe : recipes) {
-				if (recipe.getCatalyst().apply(getStackInSlot(2))) {
-					return recipe;
-				}
-			}
+			// 直接返回第一个匹配的配方，不再检查催化剂
+			return recipes.get(0);
 		}
-
 		return null;
 	}
 
@@ -194,7 +179,7 @@ public class TileCompressor
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		this.inventoryStacks = NonNullList.withSize(3, ItemStack.EMPTY);
+		this.inventoryStacks = NonNullList.withSize(2, ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(compound, this.inventoryStacks);
 		this.materialCount = compound.getInteger("MaterialCount");
 		this.materialStack = new ItemStack(compound.getCompoundTag("MaterialStack"));
@@ -204,13 +189,6 @@ public class TileCompressor
 		this.inputLimit = compound.getBoolean("InputLimit");
 	}
 
-	/**
-	 * Tries to add a stack to the specified slot, returns the amount added
-	 *
-	 * @param slot  the slot to insert to
-	 * @param stack the stack to insert
-	 * @return the amount added
-	 */
 	public int addStackToSlot(int slot, ItemStack stack) {
 		ItemStack slotStack = this.getStackInSlot(slot);
 		if (slotStack.isEmpty()) {
@@ -225,7 +203,6 @@ public class TileCompressor
 				return newSize - slotStack.getCount();
 			}
 		}
-
 		return 0;
 	}
 
@@ -307,11 +284,7 @@ public class TileCompressor
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		if (index == 2) {
-			return false;
-		} else {
-			return index != 0;
-		}
+		return index != 0; // 只有输出槽不可插入
 	}
 
 	@Override
@@ -349,4 +322,4 @@ public class TileCompressor
 
 		return super.getCapability(capability, facing);
 	}
-		}
+}
