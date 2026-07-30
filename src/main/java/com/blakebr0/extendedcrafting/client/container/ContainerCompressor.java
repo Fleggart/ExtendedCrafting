@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerCompressor extends Container {
 
-	public CombinationRecipe recipe;
 	private final TileCompressor tile;
 
 	public ContainerCompressor(InventoryPlayer player, TileCompressor tile) {
