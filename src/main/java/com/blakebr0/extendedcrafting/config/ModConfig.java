@@ -36,10 +36,6 @@ public class ModConfig {
 	public static boolean confCompressorAcceptGTEU;
 	public static boolean confCompressorRenderer;
 	
-	public static boolean confEnderEnabled;
-	public static int confEnderTimeRequired;
-	public static float confEnderAlternatorEff;
-	
 	public static boolean confSingularityEnabled;
 	public static int confSingularityAmount;
 	public static int confSingularityRF;
@@ -100,12 +96,6 @@ public class ModConfig {
 		confCompressorAcceptGTEU = config.getBoolean("accept_gteu", category, false, "Should the Quantum Compressor accept GTEU?");
 		confCompressorRenderer = config.getBoolean("render_item", category, true, "Should the Quantum Compressor render the result item above it?");
 		
-		category = "ender_crafting";
-		config.setCategoryComment(category, "Settings for the Ender Crafter.");
-		confEnderEnabled = config.getBoolean("enabled", category, true, "Should the Ender Crafter and Ender Alternator be enabled?");
-		confEnderTimeRequired = config.getInt("time_required", category, 60, 1, Integer.MAX_VALUE, "How many seconds each craft should take.");
-		confEnderAlternatorEff = config.getFloat("alternator_effectiveness", category, 0.01F, 0, 1, "How much an Ender Alternator should speed up a craft. This is the percentage of time_required.");
-		
 		category = "singularity";
 		config.setCategoryComment(category, "Settings for the Singularities.");
 		confSingularityEnabled = config.getBoolean("enabled", category, true, "Should the Singularities be enabled?");
@@ -146,8 +136,6 @@ public class ModConfig {
 			config.renameProperty("singularity", "_ultimate_singularity_recipe", "ultimate_singularity_recipe");
 			config.renameProperty("singularity", "_custom_singularities", "custom_singularities");
 			config.renameProperty("singularity", "_ultimate_blacklist", "ultimate_singularity_recipe_blacklist");
-			
-	
 		}
 	}
 	
