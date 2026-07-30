@@ -2,7 +2,6 @@ package com.blakebr0.extendedcrafting.compat.jei.compressor;
 
 import com.blakebr0.cucumber.helper.ResourceHelper;
 import com.blakebr0.cucumber.util.Utils;
-import com.blakebr0.extendedcrafting.ExtendedCrafting;
 import com.blakebr0.extendedcrafting.Tags;
 import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.api.IGuiHelper;
@@ -58,12 +57,11 @@ public class CompressorCraftingCategory implements IRecipeCategory<CompressorCra
 		List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
 		List<ItemStack> outputs = ingredients.getOutputs(VanillaTypes.ITEM).get(0);
 
+		// 输入槽位 (原催化剂槽位移除，只保留一个输入)
 		stacks.init(0, true, 57, 30);
-		stacks.init(1, true, 30, 30);
-		stacks.init(2, false, 127, 30);
+		stacks.init(1, false, 127, 30);
 
 		stacks.set(0, inputs.get(0));
-		stacks.set(1, inputs.get(1));
-		stacks.set(2, outputs);
+		stacks.set(1, outputs);
 	}
 }
