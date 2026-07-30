@@ -46,10 +46,9 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
 			String materialName = items.get(meta).getName();
 			String assumedTranslationKey = "item.ec.singularity." + materialName;
 
-			// Try to translate it using lang files
 			if(I18n.canTranslate(assumedTranslationKey))
 				localizedMaterialName = I18n.translateToLocal(assumedTranslationKey);
-			else // fallback to capitalized version of the registration name
+			else
 				localizedMaterialName = WordUtils.capitalize(materialName.replaceAll("_"," "));
 		}
 		return I18n.translateToLocalFormatted("item.ec.singularity.name", localizedMaterialName);
@@ -76,7 +75,7 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
 				+ "\n- Example: minecraft:stone:3 for a meta of 3. Make the meta 32767 for wildcard value."
 				+ "\n- 'color' the color of the singularity as a hex value. http://htmlcolorcodes.com/"
 				+ "\n- Example: 123456 would color it as whatever that color is."
-                + "\n - Use the localization key \"item.ec.singularity.<name>\" to set the name of your custom Singularity."
+			    + "\n - Use the localization key \"item.ec.singularity.<name>\" to set the name of your custom Singularity."
 			    + "\n - Example: item.ec.singularity.carrot=Carrot in your resources/extendedcrafting/lang/en_us.lang"
 			    + "\n - and item.ec.singularity.carrot=морковь in your resources/extendedcrafting/lang/ru_ru.lang"
 			    + "\n - Note however that you will need a way to load these resources, such as the mod ResourceLoader.");
@@ -156,21 +155,39 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
 					item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parts[0], parts[1]));
 					if (item != null) {
 						stack = new ItemStack(item, 1, matMeta);
-						CompressorRecipeManager.getInstance().addRecipe(new ItemStack(this, 1, meta), Ingredient.fromStacks(stack.copy()), ModConfig.confSingularityAmount, Ingredient.fromStacks(ItemSingularity.getCatalystStack()), false, ModConfig.confSingularityRF);
+						// 移除 catalyst 参数
+						CompressorRecipeManager.getInstance().addRecipe(
+							new ItemStack(this, 1, meta), 
+							Ingredient.fromStacks(stack.copy()), 
+							ModConfig.confSingularityAmount, 
+							ModConfig.confSingularityRF
+						);
 					}
 				} else if (parts.length == 2) {
 					if (((String) value).startsWith("ore:")) {
 						String ore = ((String) value).substring(4);
 						if (OreDictionary.doesOreNameExist(ore)) {
 							if (!OreDictionary.getOres(ore).isEmpty()) {
-								CompressorRecipeManager.getInstance().addRecipe(new ItemStack(this, 1, meta), CraftingHelper.getIngredient(ore), ModConfig.confSingularityAmount, Ingredient.fromStacks(ItemSingularity.getCatalystStack()), false, ModConfig.confSingularityRF);
+								// 移除 catalyst 参数
+								CompressorRecipeManager.getInstance().addRecipe(
+									new ItemStack(this, 1, meta), 
+									CraftingHelper.getIngredient(ore), 
+									ModConfig.confSingularityAmount, 
+									ModConfig.confSingularityRF
+								);
 							}
 						}
 					} else {
 						item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parts[0], parts[1]));
 						if (item != null) {
 							stack = new ItemStack(item);
-							CompressorRecipeManager.getInstance().addRecipe(new ItemStack(this, 1, meta), Ingredient.fromStacks(stack.copy()), ModConfig.confSingularityAmount, Ingredient.fromStacks(ItemSingularity.getCatalystStack()), false, ModConfig.confSingularityRF);
+							// 移除 catalyst 参数
+							CompressorRecipeManager.getInstance().addRecipe(
+								new ItemStack(this, 1, meta), 
+								Ingredient.fromStacks(stack.copy()), 
+								ModConfig.confSingularityAmount, 
+								ModConfig.confSingularityRF
+							);
 						}
 					}
 				} else {
