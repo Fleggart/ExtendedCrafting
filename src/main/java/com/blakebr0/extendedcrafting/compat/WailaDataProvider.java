@@ -65,14 +65,7 @@ public class WailaDataProvider implements IWailaDataProvider {
 				BlockAutomationInterface.class
 		);
 
-		registrar.registerBodyProvider(checkTile(TileEnderCrafter.class, (stack, tooltip, data, config, crafter) -> {
-					ItemStack result = crafter.getResult();
-					if (!result.isEmpty()) {
-						tooltip.add(Utils.localize("tooltip.ec.output", result.getCount(), result.getDisplayName()));
-					}
-				}),
-				BlockEnderCrafter.class
-		);
+		// TileEnderCrafter 和 BlockEnderCrafter 的注册已移除
 
 		registrar.registerBodyProvider(checkTile(TileCompressor.class, (stack, tooltip, data, config, compressor) -> {
 					if (ModConfig.confEnergyInWaila) {
