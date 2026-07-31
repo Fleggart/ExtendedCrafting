@@ -30,6 +30,6 @@ dependencies {
     compileOnlyApi rfg.deobf("curse.maven:hwyla-253449:2568751")
     compileOnlyApi rfg.deobf("curse.maven:packagedauto-308380:4478952")
     compileOnlyApi rfg.deobf("curse.maven:pexc-322861:4479502")
-    compileOnlyApi rfg.deobf("curse.maven:gregtechce-293327:3388082")
+//    compileOnlyApi rfg.deobf("curse.maven:gregtechce-293327:3388082")
     compileOnlyApi rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
 }
