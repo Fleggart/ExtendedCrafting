@@ -26,42 +26,42 @@ import java.util.Map;
 
 public class ItemSingularity extends ItemMeta implements IEnableable {
 
-	public static final Map<Integer, Integer> singularityColors = new HashMap<>();
-	public static final Map<Integer, Object> singularityMaterials = new HashMap<>();
-	private final Configuration config = ModConfig.config;
+    public static final Map<Integer, Integer> singularityColors = new HashMap<>();
+    public static final Map<Integer, Object> singularityMaterials = new HashMap<>();
+    private final Configuration config = ModConfig.config;
 
-	public ItemSingularity() {
-		super("ec.singularity", ExtendedCrafting.REGISTRY);
-		this.setCreativeTab(ExtendedCrafting.CREATIVE_TAB);
-	}
+    public ItemSingularity() {
+        super("ec.singularity", ExtendedCrafting.REGISTRY);
+        this.setCreativeTab(ExtendedCrafting.CREATIVE_TAB);
+    }
 
-	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
-		String localizedMaterialName = "Invalid";
-		if (items.containsKey(stack.getMetadata())) {
-			String materialName = items.get(stack.getMetadata()).getName();
-			localizedMaterialName = I18n.translateToLocal("item.ec.singularity." + materialName);
-		}
-		return I18n.translateToLocalFormatted("item.ec.singularity.name", localizedMaterialName);
-	}
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        String localizedMaterialName = "Invalid";
+        if (items.containsKey(stack.getMetadata())) {
+            String materialName = items.get(stack.getMetadata()).getName();
+            localizedMaterialName = I18n.translateToLocal("item.ec.singularity." + materialName);
+        }
+        return I18n.translateToLocalFormatted("item.ec.singularity.name", localizedMaterialName);
+    }
 
-	@Override
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.UNCOMMON;
-	}
+    @Override
+    public EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.UNCOMMON;
+    }
 
-	@Override
-	public void init() {
-		addSingularity(0, "coal", new ItemStack(Items.COAL), 0x1B1B1B);
-		addSingularity(1, "iron", "ingotIron", 0x969696);
-		addSingularity(2, "lapis_lazuli", new ItemStack(Items.DYE, 1, 4), 0x345EC3);
-		addSingularity(3, "redstone", new ItemStack(Items.REDSTONE), 0x720000);
-		addSingularity(4, "glowstone", new ItemStack(Items.GLOWSTONE_DUST), 0x868600);
-		addSingularity(5, "gold", "ingotGold", 0xDEDE00);
-		addSingularity(6, "diamond", "gemDiamond", 0x2CCDB1);
-		addSingularity(7, "emerald", "gemEmerald", 0x00A835);
-
-		addSingularity(16, "aluminum", "ingotAluminum", 0xCACCDA);
+    @Override
+    public void init() {
+        // 保留默认奇点定义
+        addSingularity(0, "coal", new ItemStack(Items.COAL), 0x1B1B1B);
+        addSingularity(1, "iron", "ingotIron", 0x969696);
+        addSingularity(2, "lapis_lazuli", new ItemStack(Items.DYE, 1, 4), 0x345EC3);
+        addSingularity(3, "redstone", new ItemStack(Items.REDSTONE), 0x720000);
+        addSingularity(4, "glowstone", new ItemStack(Items.GLOWSTONE_DUST), 0x868600);
+        addSingularity(5, "gold", "ingotGold", 0xDEDE00);
+        addSingularity(6, "diamond", "gemDiamond", 0x2CCDB1);
+        addSingularity(7, "emerald", "gemEmerald", 0x00A835);
+        addSingularity(16, "aluminum", "ingotAluminum", 0xCACCDA);
 		addSingularity(17, "copper", "ingotCopper", 0xCE7201);
 		addSingularity(18, "tin", "ingotTin", 0x7690A5);
 		addSingularity(19, "bronze", "ingotBronze", 0xA87544);
@@ -81,143 +81,112 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
 		addSingularity(33, "chrome", "ingotChrome", 0xC1A9AE);
 		addSingularity(34, "platinum", "ingotPlatinum", 0x6FEAEF);
 		addSingularity(35, "iridium", "ingotIridium", 0x949FBE);
-
 		addSingularity(48, "signalum", "ingotSignalum", 0xDD3B00);
 		addSingularity(49, "lumium", "ingotLumium", 0xDEE59C);
 		addSingularity(50, "enderium", "ingotEnderium", 0x0B4D4E);
-
 		addSingularity(64, "ardite", "ingotArdite", 0xDA4817);
 		addSingularity(65, "cobalt", "ingotCobalt", 0x023C9B);
 		addSingularity(66, "manyullyn", "ingotManyullyn", 0x5C268A);
+    }
 
-		this.config.get("singularity", "default_singularities", new String[0]).setComment("Disable specific default singularities here.");
+    @Override
+    public void initModels() {
+        for (Map.Entry<Integer, MetaItem> item : items.entrySet()) {
+            ModelLoader.setCustomModelResourceLocation(this, item.getKey(), 
+                ResourceHelper.getModelResource(Tags.MODID, "singularity", "inventory"));
+        }
+    }
 
-		if (this.config.hasChanged()) {
-			this.config.save();
-		}
-	}
+    @Override
+    public boolean isEnabled() {
+        return ModConfig.confSingularityEnabled;
+    }
 
-	@Override
-	public void initModels() {
-		for (Map.Entry<Integer, MetaItem> item : items.entrySet()) {
-			ModelLoader.setCustomModelResourceLocation(this, item.getKey(), ResourceHelper.getModelResource(Tags.MODID, "singularity", "inventory"));
-		}
-	}
+    public void addSingularity(int meta, String name, ItemStack material, int color) {
+        addToConfig(name);
+        boolean enabled = checkConfig(name);
 
-	@Override
-	public boolean isEnabled() {
-		return ModConfig.confSingularityEnabled;
-	}
+        if (enabled) {
+            singularityColors.put(meta, color);
+            singularityMaterials.put(meta, material);
+            ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
+        }
 
-	public void addSingularity(int meta, String name, ItemStack material, int color) {
-		addToConfig(name);
+        addItem(meta, name, enabled);
+    }
 
-		boolean enabled = checkConfig(name);
+    public void addSingularity(int meta, String name, String oreName, int color) {
+        addToConfig(name);
+        boolean enabled = checkConfig(name);
 
-		if (enabled) {
-			singularityColors.put(meta, color);
-			singularityMaterials.put(meta, material);
-			ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
-		}
+        if (enabled) {
+            singularityColors.put(meta, color);
+            singularityMaterials.put(meta, oreName);
+            ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
+        }
 
-		addItem(meta, name, enabled);
-	}
+        addItem(meta, name, enabled);
+    }
 
-	public void addSingularity(int meta, String name, String oreName, int color) {
-		addToConfig(name);
+    public void initRecipes() {
+        if (!ModConfig.confSingularityRecipes || !this.isEnabled())
+            return;
 
-		boolean enabled = checkConfig(name);
+        for (Map.Entry<Integer, Object> obj : singularityMaterials.entrySet()) {
+            Object value = obj.getValue();
+            int meta = obj.getKey();
+            
+            if (value instanceof ItemStack) {
+                ItemStack stack = (ItemStack) value;
+                if (!stack.isEmpty()) {
+                    CompressorRecipeManager.getInstance().addRecipe(
+                        new ItemStack(this, 1, meta), 
+                        CraftingHelper.getIngredient(value), 
+                        ModConfig.confSingularityAmount, 
+                        ModConfig.confSingularityRF
+                    );
+                }
+            } else if (value instanceof String) {
+                CompressorRecipeManager.getInstance().addRecipe(
+                    new ItemStack(this, 1, meta), 
+                    CraftingHelper.getIngredient(value), 
+                    ModConfig.confSingularityAmount, 
+                    ModConfig.confSingularityRF
+                );
+            } else {
+                ExtendedCrafting.LOGGER.error("Invalid material for singularity: " + value.toString());
+            }
+        }
+    }
 
-		if (enabled) {
-			singularityColors.put(meta, color);
-			singularityMaterials.put(meta, oreName);
-			ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
-		}
+    public boolean checkConfig(String name) {
+        String[] values = this.config.get("singularity", "default_singularities", new String[0]).getStringList();
 
-		addItem(meta, name, enabled);
-	}
+        for (String value : values) {
+            String[] entry = value.split("=");
+            if (entry[0].equals(name)) {
+                return Boolean.parseBoolean(entry[1]);
+            }
+        }
 
-	public void initRecipes() {
-		if (!ModConfig.confSingularityRecipes || !this.isEnabled())
-			return;
+        return false;
+    }
 
-		for (Map.Entry<Integer, Object> obj : singularityMaterials.entrySet()) {
-			Object value = obj.getValue();
-			int meta = obj.getKey();
-			if (value instanceof ItemStack) {
-				ItemStack stack = (ItemStack) value;
-				if (!stack.isEmpty()) {
-					// 移除 catalyst 参数
-					CompressorRecipeManager.getInstance().addRecipe(
-						new ItemStack(this, 1, meta), 
-						CraftingHelper.getIngredient(value), 
-						ModConfig.confSingularityAmount, 
-						ModConfig.confSingularityRF
-					);
-				}
-			} else if (value instanceof String) {
-				// 移除 catalyst 参数
-				CompressorRecipeManager.getInstance().addRecipe(
-					new ItemStack(this, 1, meta), 
-					CraftingHelper.getIngredient(value), 
-					ModConfig.confSingularityAmount, 
-					ModConfig.confSingularityRF
-				);
-			} else {
-				ExtendedCrafting.LOGGER.error("Invalid material for singularity: " + value.toString());
-			}
-		}
-	}
+    private void addToConfig(String name) {
+        Property prop = this.config.get("singularity", "default_singularities", new String[0]);
+        String[] values = prop.getStringList();
+        if (Arrays.stream(values).noneMatch(s -> s.split("=")[0].equals(name))) {
+            String[] newValues = new String[values.length + 1];
+            System.arraycopy(values, 0, newValues, 0, values.length);
+            newValues[values.length] = name + "=" + ModConfig.removeSingularity(name);
+            prop.set(newValues);
+        }
+    }
 
-	public static ItemStack getCatalystStack() {
-		String[] parts = ModConfig.confSingularityCatalyst.split(":");
-		if (parts.length != 3) {
-			return ItemMaterial.itemUltimateCatalyst;
-		}
-
-		Item item = ForgeRegistries.ITEMS.getValue(ResourceHelper.getResource(parts[0], parts[1]));
-		if (item == null) {
-			return ItemMaterial.itemUltimateCatalyst;
-		}
-
-		return new ItemStack(item, 1, Integer.parseInt(parts[2]));
-	}
-
-	public boolean checkConfig(String name) {
-		String[] values = this.config.get("singularity", "default_singularities", new String[0]).getStringList();
-
-		for (String value : values) {
-			String[] entry = value.split("=");
-			if (entry[0].equals(name)) {
-				return Boolean.parseBoolean(entry[1]);
-			}
-		}
-
-		return false;
-	}
-
-	private void addToConfig(String name) {
-		Property prop = this.config.get("singularity", "default_singularities", new String[0]);
-		String[] values = prop.getStringList();
-		if (Arrays.stream(values).noneMatch(s -> s.split("=")[0].equals(name))) {
-			String[] newValues = new String[values.length + 1];
-			for (int i = 0; i < newValues.length; i++) {
-				if (i < values.length) {
-					newValues[i] = values[i];
-				} else {
-					newValues[i] = name + "=" + ModConfig.removeSingularity(name);
-				}
-			}
-
-			prop.set(newValues);
-		}
-	}
-
-	public static class ColorHandler implements IItemColor {
-
-		@Override
-		public int colorMultiplier(ItemStack stack, int tintIndex) {
-			return singularityColors.get(stack.getMetadata());
-		}
-	}
+    public static class ColorHandler implements IItemColor {
+        @Override
+        public int colorMultiplier(ItemStack stack, int tintIndex) {
+            return singularityColors.get(stack.getMetadata());
+        }
+    }
 }
