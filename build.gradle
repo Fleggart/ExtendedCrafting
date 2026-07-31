@@ -32,6 +32,7 @@ dependencies {
     // 1.12.2 Forge（自动由 retrofuturagradle 提供）
     // 如果需要 JEI（可选）
     implementation 'curse.maven:jei-238222:8526969'
+    implementation 'curse.maven:cucumber-272335:2645867'
 }
 
 // ========== 资源处理 ==========
