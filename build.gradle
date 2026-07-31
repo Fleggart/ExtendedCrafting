@@ -57,7 +57,3 @@ tasks.register('generateAssets') {
     }
 }
 tasks.processResources.dependsOn(generateAssets)
-
-// ========== IDE 配置 ==========
-idea { module { inheritOutputDirs = true } }
-eclipse { classpath { downloadSources = true } }
