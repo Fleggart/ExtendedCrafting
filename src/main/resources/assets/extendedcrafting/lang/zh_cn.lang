@@ -2,7 +2,6 @@
 itemGroup.extendedcrafting=合成拓展
 
 # Block
-tile.ec.frame.name=黑铁框架
 tile.ec.interface.name=自动化接口
 tile.ec.table_basic.name=基础工作台
 tile.ec.table_advanced.name=高级工作台
