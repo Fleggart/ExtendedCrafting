@@ -31,7 +31,7 @@ repositories {
 dependencies {
     // 1.12.2 Forge（自动由 retrofuturagradle 提供）
     // 如果需要 JEI（可选）
-    // implementation rfg.deobf('curse.maven:jei-238222:3035286')
+    implementation rfg.deobf('curse.maven:jei-238222:3035286')
 }
 
 // ========== 资源处理 ==========
