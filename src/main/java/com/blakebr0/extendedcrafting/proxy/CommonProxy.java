@@ -4,9 +4,8 @@ import com.blakebr0.extendedcrafting.ExtendedCrafting;
 import com.blakebr0.extendedcrafting.Tags;
 import com.blakebr0.extendedcrafting.block.ModBlocks;
 import com.blakebr0.extendedcrafting.client.gui.GuiHandler;
-import com.blakebr0.extendedcrafting.compat.crafttweaker.CompressionCrafting;  // 保留压缩机
-import com.blakebr0.extendedcrafting.compat.crafttweaker.TableCrafting;         // 保留合成桌
-// import com.blakebr0.extendedcrafting.compat.crafttweaker.CombinationCrafting; // 删除这行
+import com.blakebr0.extendedcrafting.compat.crafttweaker.CompressionCrafting;  
+import com.blakebr0.extendedcrafting.compat.crafttweaker.TableCrafting;        
 import com.blakebr0.extendedcrafting.config.ModConfig;
 import com.blakebr0.extendedcrafting.crafting.ModRecipes;
 import com.blakebr0.extendedcrafting.item.ModItems;
@@ -43,8 +42,6 @@ public class CommonProxy {
 
         if (Loader.isModLoaded("crafttweaker")) {
             CraftTweakerAPI.registerClass(TableCrafting.class);
-            // CraftTweakerAPI.registerClass(CombinationCrafting.class); // 删除这行
-            CraftTweakerAPI.registerClass(CompressionCrafting.class);
         }
 
         FMLCommonHandler.instance().registerCrashCallable(new AddonReferenced.CrashCallable());
