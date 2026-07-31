@@ -32,9 +32,11 @@ repositories {
 dependencies {
     // 1.12.2 Forge（自动由 retrofuturagradle 提供）
     // 如果需要 JEI（可选）
+    
     implementation 'curse.maven:jei-238222:8526969'
     implementation 'curse.maven:cucumber-272335:2645867'
     implementation 'curse.maven:TheOneProbe-245211:2667280'
+    compileOnlyApi rfg.deobf("CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.660")
 }
 
 // ========== 资源处理 ==========
