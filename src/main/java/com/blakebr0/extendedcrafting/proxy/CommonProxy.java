@@ -4,7 +4,6 @@ import com.blakebr0.extendedcrafting.ExtendedCrafting;
 import com.blakebr0.extendedcrafting.Tags;
 import com.blakebr0.extendedcrafting.block.ModBlocks;
 import com.blakebr0.extendedcrafting.client.gui.GuiHandler;
-import com.blakebr0.extendedcrafting.compat.crafttweaker.CompressionCrafting;  
 import com.blakebr0.extendedcrafting.compat.crafttweaker.TableCrafting;        
 import com.blakebr0.extendedcrafting.config.ModConfig;
 import com.blakebr0.extendedcrafting.crafting.ModRecipes;
