@@ -10,18 +10,6 @@ tile.ec.table_elite.name=精英工作台
 tile.ec.table_ultimate.name=终极工作台
 tile.ec.compressor.name=量子压缩机
 
-# ITEMS
-item.ec.material_black_iron.name=黑铁锭
-item.ec.material_black_iron_slate.name=黑铁板
-item.ec.material_basic_catalyst.name=基础合成催化剂
-item.ec.material_advanced_catalyst.name=高级合成催化剂
-item.ec.material_elite_catalyst.name=精英合成催化剂
-item.ec.material_ultimate_catalyst.name=终极合成催化剂
-item.ec.material_basic_component.name=基础合成组件
-item.ec.material_advanced_component.name=高级合成组件
-item.ec.material_elite_component.name=精英合成组件
-item.ec.material_ultimate_component.name=终极合成组件
-
 # CONTAINERS
 container.ec.interface=自动化接口
 container.ec.table_basic=基础工作台
