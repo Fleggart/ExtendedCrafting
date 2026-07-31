@@ -33,6 +33,7 @@ dependencies {
     // 如果需要 JEI（可选）
     implementation 'curse.maven:jei-238222:8526969'
     implementation 'curse.maven:cucumber-272335:2645867'
+    implementation 'curse.maven:TheOneProbe-245211:2667280'
 }
 
 // ========== 资源处理 ==========
