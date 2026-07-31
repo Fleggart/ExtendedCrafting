@@ -44,18 +44,14 @@ public class ItemMaterial extends ItemMeta {
 	public void init() {
 		itemBlackIron = addItem(0, "black_iron", "ingotBlackIron");
 		itemBlackIronSlate = addItem(2, "black_iron_slate");
-
 		itemBasicCatalyst = addItem(8, "basic_catalyst");
 		itemAdvancedCatalyst = addItem(9, "advanced_catalyst");
 		itemEliteCatalyst = addItem(10, "elite_catalyst");
 		itemUltimateCatalyst = addItem(11, "ultimate_catalyst");
-
 		itemBasicComponent = addItem(14, "basic_component");
 		itemAdvancedComponent = addItem(15, "advanced_component");
 		itemEliteComponent = addItem(16, "elite_component");
 		itemUltimateComponent = addItem(17, "ultimate_component");
-
-		itemCrystaltineIngot = addItem(24, "crystaltine_ingot", "ingotCrystaltine");
 	}
 	
 	@Override
