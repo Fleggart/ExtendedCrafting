@@ -56,7 +56,7 @@ tooltip.ec.output=输出：%sx %s
 tooltip.ec.crafting=合成: %sx %s
 
 tooltip.ec.num_items=%s 物品
-tooltip.ec.requires_table=需要 %s 级工作台
+tooltip.ec.requires_table=需要%s级工作台
 tooltip.ec.items_required=所需物品：
 
 item.ec.singularity.name=%s奇点
