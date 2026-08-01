@@ -30,47 +30,6 @@ public class ItemSingularityUltimate extends ItemBase implements IEnableable {
         this.setMaxStackSize(16);
     }
 
-    public void configure(Configuration config) {
-        // 保留配置读取，但不再使用
-        ConfigCategory category = config.getCategory("singularity");
-        String[] values = config.get(category.getName(), "ultimate_singularity_recipe_blacklist", new String[0]).getStringList();
-        category.get("ultimate_singularity_recipe_blacklist").setComment("Blacklist Singularities from being in the Ultimate Singularity crafting recipe."
-                + "\n- Syntax: singularityType;meta"
-                + "\n- 'singularityType' can be 'default' or 'custom'."
-                + "\n- 'default' for the ones added by the mod by default, 'custom' being the ones defined in '_custom_singularities'."
-                + "\n- Example: custom;12");
-
-        for (String value : values) {
-            String[] parts = value.split(";");
-
-            if (parts.length != 2) {
-                ExtendedCrafting.LOGGER.error("Invalid ultimate singularity blacklist syntax length: " + value);
-                continue;
-            }
-
-            String type = parts[0];
-            int meta;
-
-            if (!type.equals("default") && !type.equals("custom")) {
-                ExtendedCrafting.LOGGER.error("Invalid ultimate singularity blacklist type: " + value);
-                continue;
-            }
-
-            try {
-                meta = Integer.parseInt(parts[1]);
-            } catch (NumberFormatException e) {
-                ExtendedCrafting.LOGGER.error("Invalid ultimate singularity blacklist meta: " + value);
-                continue;
-            }
-
-            if (type.equals("default")) {
-                blacklistDefaults.add(meta);
-            } else {
-                blacklistCustoms.add(meta);
-            }
-        }
-    }
-
     @Override
     public boolean isEnabled() {
         return ModConfig.confSingularityEnabled;
