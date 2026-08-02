@@ -26,13 +26,12 @@ public class ModConfig {
     
     public static boolean confCompressorEnabled;
     public static int confCompressorRFCapacity;
-    // ============ 删除: confCompressorRFRate (不再使用) ============
     public static boolean confCompressorAcceptGTEU;
     public static boolean confCompressorRenderer;
     
     public static boolean confSingularityEnabled;
     public static int confSingularityAmount;
-    public static int confSingularityRF;
+    // ============ 删除: confSingularityRF (不再使用) ============
     public static boolean confSingularityRecipes;
     public static String confSingularityCatalyst;
     
@@ -80,8 +79,6 @@ public class ModConfig {
         config.setCategoryComment(category, "Settings for the Quantum Compressor.");
         confCompressorEnabled = config.getBoolean("enabled", category, true, "Should the Quantum Compressor be enabled?");
         confCompressorRFCapacity = config.getInt("energy_capacity", category, 10000000, 0, Integer.MAX_VALUE, "How much FE the Quantum Compressor should hold.");
-        // ============ 删除: confCompressorRFRate (不再使用) ============
-        // 原: confCompressorRFRate = config.getInt("energy_rate", category, 5000, 0, Integer.MAX_VALUE, "...");
         confCompressorAcceptGTEU = config.getBoolean("accept_gteu", category, false, "Should the Quantum Compressor accept GTEU?");
         confCompressorRenderer = config.getBoolean("render_item", category, true, "Should the Quantum Compressor render the result item above it?");
         
@@ -89,7 +86,8 @@ public class ModConfig {
         config.setCategoryComment(category, "Settings for the Singularities.");
         confSingularityEnabled = config.getBoolean("enabled", category, true, "Should the Singularities be enabled?");
         confSingularityAmount = config.getInt("material_amount", category, 10000, 1, Integer.MAX_VALUE, "The amount of materials required to create a Singularity, for the default recipes.");
-        confSingularityRF = config.getInt("energy_cost", category, 5000000, 0, Integer.MAX_VALUE, "The amount of RF required to craft a Singularity, for the default recipes.");
+        // ============ 删除: energy_cost 配置 ============
+        // 原: confSingularityRF = config.getInt("energy_cost", category, 5000000, 0, Integer.MAX_VALUE, "...");
         confSingularityCatalyst = config.getString("default_catalyst", category, "extendedcrafting:material:11", "The catalyst required for the default Singularity recipes. modid:itemid:metadata");
         confSingularityRecipes = config.getBoolean("default_recipes", category, true, "Should the default Singularity recipes be enabled?");
         
@@ -122,8 +120,6 @@ public class ModConfig {
         if (config.hasCategory("settings")) {
     
             updateProperty("compressor_rf_capacity", "energy_capacity", "quantum_compression");
-            // ============ 删除: compressor_rf_rate 迁移 ============
-            // updateProperty("compressor_rf_rate", "energy_rate", "quantum_compression");
             updateProperty("interface_rf_capacity", "energy_capacity", "automation_interface");
             updateProperty("interface_rf_rate", "energy_rate", "automation_interface");
             
@@ -132,7 +128,8 @@ public class ModConfig {
             config.removeCategory(settings);
             
             config.renameProperty("singularity", "_singularity_amount", "material_amount");
-            config.renameProperty("singularity", "_singularity_rf", "energy_cost");
+            // ============ 删除: _singularity_rf 迁移 ============
+            // config.renameProperty("singularity", "_singularity_rf", "energy_cost");
             config.renameProperty("singularity", "_singularity_catalyst", "default_catalyst");
             config.renameProperty("singularity", "_singularity_recipes", "default_recipes");
             config.renameProperty("singularity", "_custom_singularities", "custom_singularities");
