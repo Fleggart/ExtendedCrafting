@@ -26,7 +26,6 @@ public class ModConfig {
     
     public static boolean confCompressorEnabled;
     public static int confCompressorRFCapacity;
-    public static int confCompressorRFRate;
     public static boolean confCompressorAcceptGTEU;
     public static boolean confCompressorRenderer;
     
@@ -36,7 +35,6 @@ public class ModConfig {
     public static boolean confSingularityRecipes;
     public static String confSingularityCatalyst;
     
-    // ============ 添加: 自定义奇点配置项 ============
     public static String[] confCustomSingularities;
 
     public static int confEUtoRF;
@@ -81,7 +79,8 @@ public class ModConfig {
         config.setCategoryComment(category, "Settings for the Quantum Compressor.");
         confCompressorEnabled = config.getBoolean("enabled", category, true, "Should the Quantum Compressor be enabled?");
         confCompressorRFCapacity = config.getInt("energy_capacity", category, 10000000, 0, Integer.MAX_VALUE, "How much FE the Quantum Compressor should hold.");
-        confCompressorRFRate = config.getInt("energy_rate", category, 5000, 0, Integer.MAX_VALUE, "How much FE/t the Quantum Compressor should use when crafting by default.");
+        // ============ 删除: confCompressorRFRate (不再使用) ============
+        // 原: confCompressorRFRate = config.getInt("energy_rate", category, 5000, 0, Integer.MAX_VALUE, "...");
         confCompressorAcceptGTEU = config.getBoolean("accept_gteu", category, false, "Should the Quantum Compressor accept GTEU?");
         confCompressorRenderer = config.getBoolean("render_item", category, true, "Should the Quantum Compressor render the result item above it?");
         
@@ -93,7 +92,6 @@ public class ModConfig {
         confSingularityCatalyst = config.getString("default_catalyst", category, "extendedcrafting:material:11", "The catalyst required for the default Singularity recipes. modid:itemid:metadata");
         confSingularityRecipes = config.getBoolean("default_recipes", category, true, "Should the default Singularity recipes be enabled?");
         
-        // ============ 关键: 读取 custom_singularities 配置 ============
         confCustomSingularities = config.getStringList("custom_singularities", category, new String[0], 
             "Here you can add your own custom Singularities.\n" +
             "- Syntax: meta;name;material;color\n" +
@@ -123,7 +121,6 @@ public class ModConfig {
         if (config.hasCategory("settings")) {
     
             updateProperty("compressor_rf_capacity", "energy_capacity", "quantum_compression");
-            updateProperty("compressor_rf_rate", "energy_rate", "quantum_compression");
             updateProperty("interface_rf_capacity", "energy_capacity", "automation_interface");
             updateProperty("interface_rf_rate", "energy_rate", "automation_interface");
             
