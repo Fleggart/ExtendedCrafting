@@ -124,6 +124,9 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
         return ModConfig.confSingularityEnabled;
     }
 
+    // ============ 修改后的 addSingularity 方法 ============
+    // 已删除 ItemSingularityUltimate.addSingularityToRecipe 调用
+
     public void addSingularity(int meta, String name, String material, int color) {
         singularityColors.put(meta, color);
         singularityMaterials.put(meta, material);
