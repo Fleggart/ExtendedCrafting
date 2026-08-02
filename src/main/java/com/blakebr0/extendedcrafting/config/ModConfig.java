@@ -1,7 +1,6 @@
 package com.blakebr0.extendedcrafting.config;
 
 import com.blakebr0.extendedcrafting.Tags;
-import com.blakebr0.extendedcrafting.item.ModItems;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -19,7 +18,7 @@ public class ModConfig {
     public static boolean confInterfaceEnabled;
     public static int confInterfaceRFCapacity;
     public static int confInterfaceRFRate;
-    public static boolean confInterfaceAcceptGTEU;
+  
     public static boolean confInterfaceRenderer;
     
     public static boolean confTableEnabled;
@@ -28,7 +27,7 @@ public class ModConfig {
     public static boolean confCompressorEnabled;
     public static int confCompressorRFCapacity;
     public static int confCompressorRFRate;
-    public static boolean confCompressorAcceptGTEU;
+ 
     public static boolean confCompressorRenderer;
     
     public static boolean confSingularityEnabled;
@@ -38,7 +37,7 @@ public class ModConfig {
     public static boolean confUltimateSingularityRecipe;
     public static String confSingularityCatalyst;
 
-    public static int confEUtoRF;
+    // 删除: public static int confEUtoRF;
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
@@ -60,7 +59,6 @@ public class ModConfig {
         
         category = "general";
         config.setCategoryComment(category, "Settings for general things.");
-    
         confEnergyInWaila = config.getBoolean("energy_in_waila", category, true, "Should WAILA show the current energy of Extended Crafting machines?");
         
         category = "automation_interface";
@@ -93,12 +91,7 @@ public class ModConfig {
         confSingularityRecipes = config.getBoolean("default_recipes", category, true, "Should the default Singularity recipes be enabled?");
         confUltimateSingularityRecipe = config.getBoolean("ultimate_singularity_recipe", category, true, "Should the default Ultimate Singularity recipe be enabled?");
         
-        // ============ 已删除: ModItems.itemSingularityCustom.configure(config); ============
-        // ============ 已删除: ModItems.itemSingularityUltimate.configure(config); ============
-
-        category = "gregtech";
-        config.setCategoryComment(category, "Settings for GregTech compatibility.");
-        confEUtoRF = config.getInt("conversion", category, 4, 1, Integer.MAX_VALUE, "How much RF should one GTEU be handled as?");
+        // 删除所有 GregTech 相关配置
 
         if (config.hasChanged()) {
             config.save();
@@ -107,7 +100,6 @@ public class ModConfig {
     
     private static void updateConfig() {
         if (config.hasCategory("settings")) {
-    
             updateProperty("compressor_rf_capacity", "energy_capacity", "quantum_compression");
             updateProperty("compressor_rf_rate", "energy_rate", "quantum_compression");
             updateProperty("interface_rf_capacity", "energy_capacity", "automation_interface");
@@ -125,6 +117,11 @@ public class ModConfig {
             config.renameProperty("singularity", "_custom_singularities", "custom_singularities");
             config.renameProperty("singularity", "_ultimate_blacklist", "ultimate_singularity_recipe_blacklist");
         }
+        
+        // 删除 gregtech 分类（如果存在）
+        if (config.hasCategory("gregtech")) {
+            config.removeCategory(config.getCategory("gregtech"));
+        }
     }
     
     private static void updateProperty(String oldName, String newName, String newCategory) {
@@ -135,7 +132,6 @@ public class ModConfig {
     public static boolean removeSingularity(String name) {
         boolean value = config.get("singularity", name, true).getBoolean();
         config.getCategory("singularity").remove(name);
-        
         return value;
     }
 }
