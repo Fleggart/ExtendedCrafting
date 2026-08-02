@@ -10,19 +10,12 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.config.ConfigCategory;
-import net.minecraftforge.common.config.Configuration;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemSingularityUltimate extends ItemBase implements IEnableable {
-
-    // 清空列表，不再收集任何奇点
-    public static final ArrayList<ItemStack> singularities = new ArrayList<>();
-    public static final ArrayList<Integer> blacklistDefaults = new ArrayList<>();
-    public static final ArrayList<Integer> blacklistCustoms = new ArrayList<>();
 
     public ItemSingularityUltimate() {
         super("ec.singularity_ultimate");
