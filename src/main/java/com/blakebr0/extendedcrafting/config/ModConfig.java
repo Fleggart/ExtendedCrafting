@@ -40,6 +40,8 @@ public class ModConfig {
 	public static boolean confUltimateSingularityRecipe;
 	public static String confSingularityCatalyst;
 
+	public static int confEUtoRF;
+
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (event.getModID().equals(Tags.MODID)) {
@@ -96,6 +98,10 @@ public class ModConfig {
 		confUltimateSingularityRecipe = config.getBoolean("ultimate_singularity_recipe", category, true, "Should the default Ultimate Singularity recipe be enabled?");
 		ModItems.itemSingularityCustom.configure(config);
 		ModItems.itemSingularityUltimate.configure(config);
+
+		category = "gregtech";
+		config.setCategoryComment(category, "Settings for GregTech compatibility.");
+		confEUtoRF = config.getInt("conversion", category, 4, 1, Integer.MAX_VALUE, "How much RF should one GTEU be handled as?");
 
 		if (config.hasChanged()) {
 			config.save();
