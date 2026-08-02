@@ -13,7 +13,6 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 import java.util.HashMap;
@@ -21,9 +20,11 @@ import java.util.Map;
 
 public class ItemSingularity extends ItemMeta implements IEnableable {
 
+    // ============ 固定能量消耗 ============
+    private static final int FIXED_ENERGY_COST = 1000;
+
     public static final Map<Integer, Integer> singularityColors = new HashMap<>();
     public static final Map<Integer, Object> singularityMaterials = new HashMap<>();
-    private final Configuration config = ModConfig.config;
 
     public ItemSingularity() {
         super("ec.singularity", ExtendedCrafting.REGISTRY);
@@ -123,7 +124,7 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
                         new ItemStack(this, 1, meta), 
                         CraftingHelper.getIngredient(value), 
                         ModConfig.confSingularityAmount, 
-                        ModConfig.confSingularityRF
+                        FIXED_ENERGY_COST  // ============ 使用固定值 1000 ============
                     );
                 }
             } else if (value instanceof String) {
@@ -131,7 +132,7 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
                     new ItemStack(this, 1, meta), 
                     CraftingHelper.getIngredient(value), 
                     ModConfig.confSingularityAmount, 
-                    ModConfig.confSingularityRF
+                    FIXED_ENERGY_COST  // ============ 使用固定值 1000 ============
                 );
             } else {
                 ExtendedCrafting.LOGGER.error("Invalid material for singularity: " + value.toString());
