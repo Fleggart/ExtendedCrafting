@@ -27,6 +27,9 @@ import java.util.Map;
 
 public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEnableable {
 
+    // ============ 固定能量消耗 ============
+    private static final int FIXED_ENERGY_COST = 1000;
+
     public static final Map<Integer, Integer> singularityColors = new HashMap<>();
     public static final Map<Integer, Object> singularityMaterials = new HashMap<>();
 
@@ -56,7 +59,6 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
         return EnumRarity.UNCOMMON;
     }
 
-    // ============ 简化: 直接从 ModConfig 读取 ============
     public void configure(Configuration config) {
         // 不需要再解析，直接从 ModConfig 读取
     }
@@ -140,11 +142,12 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
                 String oreName = materialStr.substring(4);
                 if (OreDictionary.doesOreNameExist(oreName)) {
                     if (!OreDictionary.getOres(oreName).isEmpty()) {
+                        // ============ 修改: 使用固定值 1000 ============
                         CompressorRecipeManager.getInstance().addRecipe(
                             new ItemStack(this, 1, meta),
                             CraftingHelper.getIngredient(oreName),
                             ModConfig.confSingularityAmount,
-                            ModConfig.confSingularityRF
+                            FIXED_ENERGY_COST
                         );
                         ExtendedCrafting.LOGGER.info("Added ore recipe for custom singularity meta=" + meta);
                     }
@@ -159,11 +162,12 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
                 if (item != null) {
                     int itemMeta = parts.length == 3 ? Integer.parseInt(parts[2]) : 0;
                     ItemStack stack = new ItemStack(item, 1, itemMeta);
+                    // ============ 修改: 使用固定值 1000 ============
                     CompressorRecipeManager.getInstance().addRecipe(
                         new ItemStack(this, 1, meta),
                         Ingredient.fromStacks(stack),
                         ModConfig.confSingularityAmount,
-                        ModConfig.confSingularityRF
+                        FIXED_ENERGY_COST
                     );
                     ExtendedCrafting.LOGGER.info("Added item recipe for custom singularity meta=" + meta);
                 } else {
