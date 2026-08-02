@@ -97,7 +97,7 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
     public boolean isEnabled() {
         return ModConfig.confSingularityEnabled;
     }
-
+    
     public void addSingularity(int meta, String name, ItemStack material, int color) {
         addToConfig(name);
         boolean enabled = checkConfig(name);
@@ -105,7 +105,6 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
         if (enabled) {
             singularityColors.put(meta, color);
             singularityMaterials.put(meta, material);
-            // 已删除: ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
         }
 
         addItem(meta, name, enabled);
@@ -118,7 +117,6 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
         if (enabled) {
             singularityColors.put(meta, color);
             singularityMaterials.put(meta, oreName);
-            // 已删除: ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
         }
 
         addItem(meta, name, enabled);
