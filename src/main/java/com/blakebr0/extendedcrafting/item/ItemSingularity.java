@@ -47,10 +47,14 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
 
     @Override
     public void init() {
-        // ============ 移除白名单检查，直接添加所有默认奇点 ============
-        
-        addSingularity(0, "iron", "ingotIron", 0x969696);
+        addSingularity(0, "coal", new ItemStack(Items.COAL), 0x1B1B1B);
+        addSingularity(1, "iron", "ingotIron", 0x969696);
+        addSingularity(2, "lapis_lazuli", new ItemStack(Items.DYE, 1, 4), 0x345EC3);
+        addSingularity(3, "redstone", new ItemStack(Items.REDSTONE), 0x720000);
+        addSingularity(4, "glowstone", new ItemStack(Items.GLOWSTONE_DUST), 0x868600);
         addSingularity(5, "gold", "ingotGold", 0xDEDE00);
+        addSingularity(6, "diamond", "gemDiamond", 0x2CCDB1);
+        addSingularity(7, "emerald", "gemEmerald", 0x00A835);
         addSingularity(16, "aluminum", "ingotAluminum", 0xCACCDA);
         addSingularity(17, "copper", "ingotCopper", 0xCE7201);
         addSingularity(18, "tin", "ingotTin", 0x7690A5);
@@ -71,7 +75,12 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
         addSingularity(33, "chrome", "ingotChrome", 0xC1A9AE);
         addSingularity(34, "platinum", "ingotPlatinum", 0x6FEAEF);
         addSingularity(35, "iridium", "ingotIridium", 0x949FBE);
+        addSingularity(48, "signalum", "ingotSignalum", 0xDD3B00);
+        addSingularity(49, "lumium", "ingotLumium", 0xDEE59C);
+        addSingularity(50, "enderium", "ingotEnderium", 0x0B4D4E);
+        addSingularity(64, "ardite", "ingotArdite", 0xDA4817);
         addSingularity(65, "cobalt", "ingotCobalt", 0x023C9B);
+        addSingularity(66, "manyullyn", "ingotManyullyn", 0x5C268A);
     }
 
     @Override
@@ -87,29 +96,17 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
         return ModConfig.confSingularityEnabled;
     }
 
-    // ============ 简化 addSingularity 方法 ============
-    // 移除白名单检查，直接添加所有奇点
-    
     public void addSingularity(int meta, String name, ItemStack material, int color) {
         singularityColors.put(meta, color);
         singularityMaterials.put(meta, material);
-        // 已删除: ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
-        // 已删除: 白名单/黑名单检查
         addItem(meta, name, true);
     }
 
     public void addSingularity(int meta, String name, String oreName, int color) {
         singularityColors.put(meta, color);
         singularityMaterials.put(meta, oreName);
-        // 已删除: ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
-        // 已删除: 白名单/黑名单检查
         addItem(meta, name, true);
     }
-
-    // ============ 移除 checkConfig 和 addToConfig 方法 ============
-    // 不再需要检查配置来启用/禁用奇点
-    // 已删除: public boolean checkConfig(String name) { ... }
-    // 已删除: private void addToConfig(String name) { ... }
 
     public void initRecipes() {
         if (!ModConfig.confSingularityRecipes || !this.isEnabled())
