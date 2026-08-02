@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("SameParameterValue")
 public class GuiCompressor extends GuiContainer {
 
 	private static final ResourceLocation GUI = ResourceHelper.getResource(Tags.MODID, "textures/gui/compressor.png");
@@ -79,7 +80,18 @@ public class GuiCompressor extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
-		// 删除了两个隐藏按钮的添加代码
+		this.buttonList.add(new GuiButton(1, this.guiLeft + 69, this.guiTop + 29, 11, 9, "") {
+			@Override
+			public void drawButton(@Nullable Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+				// 隐藏按钮绘制，只保留点击区域
+			}
+		});
+		this.buttonList.add(new GuiButton(2, this.guiLeft + 91, this.guiTop + 74, 7, 10, "") {
+			@Override
+			public void drawButton(@Nullable Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+				// 隐藏按钮绘制，只保留点击区域
+			}
+		});
 	}
 
 	@Override
@@ -107,7 +119,21 @@ public class GuiCompressor extends GuiContainer {
 			this.drawHoveringText(l, mouseX, mouseY);
 		}
 
-		// 删除了两个按钮的 Tooltip 代码
+		if (mouseX > guiLeft + 68 && mouseX < guiLeft + 79 && mouseY > guiTop + 28 && mouseY < guiTop + 39) {
+			if (this.tile.isEjecting()) {
+				this.drawHoveringText(Utils.localize("tooltip.ec.ejecting"), mouseX, mouseY);
+			} else {
+				this.drawHoveringText(Utils.localize("tooltip.ec.eject"), mouseX, mouseY);
+			}
+		}
+
+		if (mouseX > guiLeft + 90 && mouseX < guiLeft + 98 && mouseY > guiTop + 73 && mouseY < guiTop + 84) {
+			if (this.tile.isLimitingInput()) {
+				this.drawHoveringText(Utils.localize("tooltip.ec.limited_input"), mouseX, mouseY);
+			} else {
+				this.drawHoveringText(Utils.localize("tooltip.ec.unlimited_input"), mouseX, mouseY);
+			}
+		}
 	}
 
 	@Override
@@ -132,6 +158,21 @@ public class GuiCompressor extends GuiContainer {
 			}
 		}
 
-		// 删除了两个按钮状态绘制代码
+		if (mouseX > guiLeft + 68 && mouseX < guiLeft + 79 && mouseY > guiTop + 28 && mouseY < guiTop + 39) {
+			this.drawTexturedModalRect(x + 68, y + 30, 194, 32, 11, 9);
+		}
+
+		if(this.tile == null) return;
+		if (mouseX > guiLeft + 90 && mouseX < guiLeft + 98 && mouseY > guiTop + 73 && mouseY < guiTop + 84) {
+			if (this.tile.isLimitingInput()) {
+				this.drawTexturedModalRect(x + 90, y + 74, 194, 56, 9, 10);
+			} else {
+				this.drawTexturedModalRect(x + 90, y + 74, 194, 43, 9, 10);
+			}
+		} else {
+			if (this.tile.isLimitingInput()) {
+				this.drawTexturedModalRect(x + 90, y + 74, 203, 56, 9, 10);
+			}
+		}
 	}
 }
