@@ -22,9 +22,9 @@ public class CompressorCraftingWrapper implements IRecipeWrapper {
 	@Nonnull
 	@Override
 	public List<String> getTooltipStrings(int mouseX, int mouseY) {
-		// ============ 修改: 只显示总能量消耗，移除 FE/t ============
 		if (mouseX > 1 && mouseX < 14 && mouseY > 1 && mouseY < 78) {
-			return Collections.singletonList(Utils.format(this.recipe.getPowerCost()) + " FE");
+			// ============ 修改: 显示 "FE: 1,000,000" 格式 ============
+			return Collections.singletonList("FE: " + Utils.format(this.recipe.getPowerCost()));
 		}
 		if (mouseX > 54 && mouseX < 78 && mouseY > 58 && mouseY < 68) {
 			return Collections.singletonList(Utils.localize("tooltip.ec.num_items", Utils.format(this.recipe.getInputCount())));
