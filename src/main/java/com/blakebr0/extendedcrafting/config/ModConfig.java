@@ -26,6 +26,7 @@ public class ModConfig {
     
     public static boolean confCompressorEnabled;
     public static int confCompressorRFCapacity;
+    // ============ 删除: confCompressorRFRate (不再使用) ============
     public static boolean confCompressorAcceptGTEU;
     public static boolean confCompressorRenderer;
     
@@ -121,6 +122,8 @@ public class ModConfig {
         if (config.hasCategory("settings")) {
     
             updateProperty("compressor_rf_capacity", "energy_capacity", "quantum_compression");
+            // ============ 删除: compressor_rf_rate 迁移 ============
+            // updateProperty("compressor_rf_rate", "energy_rate", "quantum_compression");
             updateProperty("interface_rf_capacity", "energy_capacity", "automation_interface");
             updateProperty("interface_rf_rate", "energy_rate", "automation_interface");
             
