@@ -91,6 +91,10 @@ public class ModConfig {
         confSingularityCatalyst = config.getString("default_catalyst", category, "extendedcrafting:material:11", "The catalyst required for the default Singularity recipes. modid:itemid:metadata");
         confSingularityRecipes = config.getBoolean("default_recipes", category, true, "Should the default Singularity recipes be enabled?");
         // 已删除: confUltimateSingularityRecipe = config.getBoolean("ultimate_singularity_recipe", category, true, "...");
+        // ============ 移除所有白名单/黑名单配置 ============
+        // 已删除: config.get(category.getName(), "default_singularities", new String[0]);
+        // 已删除: config.get(category.getName(), "ultimate_singularity_recipe_blacklist", new String[0]);
+        // 已删除: config.get(category.getName(), "custom_singularity_blacklist", new String[0]);
 
         category = "gregtech";
         config.setCategoryComment(category, "Settings for GregTech compatibility.");
@@ -119,7 +123,7 @@ public class ModConfig {
             config.renameProperty("singularity", "_singularity_recipes", "default_recipes");
             // 已删除: config.renameProperty("singularity", "_ultimate_singularity_recipe", "ultimate_singularity_recipe");
             config.renameProperty("singularity", "_custom_singularities", "custom_singularities");
-            config.renameProperty("singularity", "_ultimate_blacklist", "ultimate_singularity_recipe_blacklist");
+            // 已删除: config.renameProperty("singularity", "_ultimate_blacklist", "ultimate_singularity_recipe_blacklist");
         }
     }
     
@@ -128,10 +132,7 @@ public class ModConfig {
         config.renameProperty(newCategory, oldName, newName);
     }
     
-    public static boolean removeSingularity(String name) {
-        boolean value = config.get("singularity", name, true).getBoolean();
-        config.getCategory("singularity").remove(name);
-        
-        return value;
-    }
+    // ============ 删除 removeSingularity 方法 ============
+    // 不再需要从配置中读取白名单
+    // 已删除: public static boolean removeSingularity(String name) { ... }
 }
