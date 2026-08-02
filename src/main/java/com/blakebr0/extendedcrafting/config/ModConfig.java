@@ -18,7 +18,7 @@ public class ModConfig {
     public static boolean confInterfaceEnabled;
     public static int confInterfaceRFCapacity;
     public static int confInterfaceRFRate;
-  
+    // 删除: public static boolean confInterfaceAcceptGTEU;
     public static boolean confInterfaceRenderer;
     
     public static boolean confTableEnabled;
@@ -27,7 +27,7 @@ public class ModConfig {
     public static boolean confCompressorEnabled;
     public static int confCompressorRFCapacity;
     public static int confCompressorRFRate;
- 
+    // 删除: public static boolean confCompressorAcceptGTEU;
     public static boolean confCompressorRenderer;
     
     public static boolean confSingularityEnabled;
@@ -36,8 +36,6 @@ public class ModConfig {
     public static boolean confSingularityRecipes;
     public static boolean confUltimateSingularityRecipe;
     public static String confSingularityCatalyst;
-
-    // 删除: public static int confEUtoRF;
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
@@ -66,7 +64,7 @@ public class ModConfig {
         confInterfaceEnabled = config.getBoolean("enabled", category, true, "Should the Automation Interface be enabled?");
         confInterfaceRFCapacity = config.getInt("energy_capacity", category, 1000000, 0, Integer.MAX_VALUE, "How much FE the Automation Interface should hold.");
         confInterfaceRFRate = config.getInt("energy_rate", category, 80, 0, 100000, "How much FE the Automation Interface should use when moving items.");
-        confInterfaceAcceptGTEU = config.getBoolean("accept_gteu", category, false, "Should the Automation Interface accept GTEU?");
+        // 删除: confInterfaceAcceptGTEU = config.getBoolean("accept_gteu", category, false, "Should the Automation Interface accept GTEU?");
         confInterfaceRenderer = config.getBoolean("render_item", category, true, "Should the Automation Interface render the result item inside it?");
         
         category = "table_crafting";
@@ -79,7 +77,7 @@ public class ModConfig {
         confCompressorEnabled = config.getBoolean("enabled", category, true, "Should the Quantum Compressor be enabled?");
         confCompressorRFCapacity = config.getInt("energy_capacity", category, 10000000, 0, Integer.MAX_VALUE, "How much FE the Quantum Compressor should hold.");
         confCompressorRFRate = config.getInt("energy_rate", category, 5000, 0, Integer.MAX_VALUE, "How much FE/t the Quantum Compressor should use when crafting by default.");
-        confCompressorAcceptGTEU = config.getBoolean("accept_gteu", category, false, "Should the Quantum Compressor accept GTEU?");
+        // 删除: confCompressorAcceptGTEU = config.getBoolean("accept_gteu", category, false, "Should the Quantum Compressor accept GTEU?");
         confCompressorRenderer = config.getBoolean("render_item", category, true, "Should the Quantum Compressor render the result item above it?");
         
         category = "singularity";
@@ -90,8 +88,6 @@ public class ModConfig {
         confSingularityCatalyst = config.getString("default_catalyst", category, "extendedcrafting:material:11", "The catalyst required for the default Singularity recipes. modid:itemid:metadata");
         confSingularityRecipes = config.getBoolean("default_recipes", category, true, "Should the default Singularity recipes be enabled?");
         confUltimateSingularityRecipe = config.getBoolean("ultimate_singularity_recipe", category, true, "Should the default Ultimate Singularity recipe be enabled?");
-        
-        // 删除所有 GregTech 相关配置
 
         if (config.hasChanged()) {
             config.save();
@@ -118,9 +114,12 @@ public class ModConfig {
             config.renameProperty("singularity", "_ultimate_blacklist", "ultimate_singularity_recipe_blacklist");
         }
         
-        // 删除 gregtech 分类（如果存在）
-        if (config.hasCategory("gregtech")) {
-            config.removeCategory(config.getCategory("gregtech"));
+        // 删除 GTEU 相关配置项
+        if (config.hasCategory("automation_interface") && config.getCategory("automation_interface").containsKey("accept_gteu")) {
+            config.getCategory("automation_interface").remove("accept_gteu");
+        }
+        if (config.hasCategory("quantum_compression") && config.getCategory("quantum_compression").containsKey("accept_gteu")) {
+            config.getCategory("quantum_compression").remove("accept_gteu");
         }
     }
     
