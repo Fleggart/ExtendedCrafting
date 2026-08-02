@@ -10,9 +10,7 @@ import java.util.List;
 public class CompressorRecipeManager {
 
 	private static final CompressorRecipeManager INSTANCE = new CompressorRecipeManager();
-
 	private final List<CompressorRecipe> recipes = new ArrayList<>();
-
 	public static CompressorRecipeManager getInstance() {
 		return INSTANCE;
 	}
