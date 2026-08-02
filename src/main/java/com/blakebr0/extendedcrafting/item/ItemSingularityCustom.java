@@ -59,6 +59,7 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
         return EnumRarity.UNCOMMON;
     }
 
+    // ============ 移除黑名单检查，直接添加所有自定义奇点 ============
     public void configure(Configuration config) {
         ConfigCategory category = config.getCategory("singularity");
         String[] values = config.get(category.getName(), "custom_singularities", new String[0]).getStringList();
@@ -80,6 +81,8 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
                 + "\n - and item.ec.singularity.carrot=морковь in your resources/extendedcrafting/lang/ru_ru.lang"
                 + "\n - Note however that you will need a way to load these resources, such as the mod ResourceLoader.");
 
+        // ============ 移除黑名单检查 ============
+        // 不再检查 custom_singularity_blacklist，全部添加
         for (String value : values) {
             String[] parts = value.split(";");
 
@@ -124,13 +127,12 @@ public class ItemSingularityCustom extends ItemMeta implements IModelHelper, IEn
         return ModConfig.confSingularityEnabled;
     }
 
-    // ============ 修改后的 addSingularity 方法 ============
-    // 已删除 ItemSingularityUltimate.addSingularityToRecipe 调用
-
+    // ============ 简化 addSingularity ============
     public void addSingularity(int meta, String name, String material, int color) {
         singularityColors.put(meta, color);
         singularityMaterials.put(meta, material);
         // 已删除: ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
+        // 已删除: 黑名单检查
         addItem(meta, name, true);
     }
 
