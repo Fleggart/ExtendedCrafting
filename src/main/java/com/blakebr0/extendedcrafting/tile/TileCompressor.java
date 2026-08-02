@@ -25,11 +25,13 @@ public class TileCompressor
         extends TileInventoryBase
         implements ISidedInventory, ITickable {
 
+    // ============ 固定能量消耗 ============
+    private static final int FIXED_ENERGY_COST = 1000;
+
     private NonNullList<ItemStack> inventoryStacks = NonNullList.withSize(2, ItemStack.EMPTY);
     private final EnergyStorageCustom energy = new EnergyStorageCustom(ModConfig.confCompressorRFCapacity);
     private ItemStack materialStack = ItemStack.EMPTY;
     private int materialCount;
-    private int progress;
     private boolean ejecting = false;
     private int oldEnergy;
     private boolean inputLimit = true;
@@ -85,27 +87,21 @@ public class TileCompressor
                 this.materialStack = ItemStack.EMPTY;
             }
 
-            // ============ 修改: 瞬间完成制作 ============
-            // 原逻辑: 需要逐步消耗能量，progress 慢慢增加
-            // 新逻辑: 检查能量是否足够，足够则瞬间完成
-            
+            // ============ 修改: 瞬间完成，固定消耗 1000 FE ============
             if (recipe != null) {
                 if (this.materialCount >= recipe.getInputCount()) {
-                    // 检查能量是否足够完成制作
-                    if (this.getEnergy().getEnergyStored() >= recipe.getPowerCost()) {
+                    // 检查能量是否足够 (固定 1000 FE)
+                    if (this.getEnergy().getEnergyStored() >= FIXED_ENERGY_COST) {
                         ItemStack recipeOutput = recipe.getOutput();
                         
-                        // 检查输出槽是否可放入
                         if ((output.isEmpty() || StackHelper.areStacksEqual(output, recipeOutput)) 
                                 && output.getCount() < recipeOutput.getMaxStackSize()) {
                             
-                            // 瞬间消耗所有能量
-                            this.getEnergy().extractEnergy(recipe.getPowerCost(), false);
+                            // 消耗固定 1000 FE
+                            this.getEnergy().extractEnergy(FIXED_ENERGY_COST, false);
                             
-                            // 放入输出
                             this.addStackToSlot(0, recipe.getOutput());
                             
-                            // 重置材料计数
                             this.materialCount -= recipe.getInputCount();
                             if (this.materialCount <= 0) {
                                 this.materialStack = ItemStack.EMPTY;
@@ -148,17 +144,11 @@ public class TileCompressor
 
     @Nullable
     public CompressorRecipe getRecipe() {
-        List<CompressorRecipe> recipes = this.getValidRecipes(this.materialStack);
-        if (!recipes.isEmpty()) {
-            return recipes.get(0);
+        List<CompressorRecipe> valid = this.getValidRecipes(this.materialStack);
+        if (!valid.isEmpty()) {
+            return valid.get(0);
         }
         return null;
-    }
-
-    // ============ process 方法不再需要，保留但不使用 ============
-    // 或者完全删除该方法
-    private void process(CompressorRecipe recipe) {
-        // 不再使用逐步消耗
     }
 
     @Override
@@ -172,8 +162,6 @@ public class TileCompressor
         if (!this.materialStack.isEmpty()) {
             compound.setTag("MaterialStack", this.materialStack.serializeNBT());
         }
-        // ============ progress 不再需要保存 ============
-        // compound.setInteger("Progress", this.progress);
         compound.setBoolean("Ejecting", this.ejecting);
         compound.setInteger("Energy", this.energy.getEnergyStored());
         compound.setBoolean("InputLimit", this.inputLimit);
@@ -187,8 +175,6 @@ public class TileCompressor
         ItemStackHelper.loadAllItems(compound, this.inventoryStacks);
         this.materialCount = compound.getInteger("MaterialCount");
         this.materialStack = new ItemStack(compound.getCompoundTag("MaterialStack"));
-        // ============ progress 不再需要读取 ============
-        // this.progress = compound.getInteger("Progress");
         this.ejecting = compound.getBoolean("Ejecting");
         this.energy.setEnergy(compound.getInteger("Energy"));
         this.inputLimit = compound.getBoolean("InputLimit");
@@ -243,7 +229,6 @@ public class TileCompressor
         this.markDirty();
     }
 
-    // ============ getProgress 返回 0 或始终完成 ============
     public int getProgress() {
         return 0;
     }
