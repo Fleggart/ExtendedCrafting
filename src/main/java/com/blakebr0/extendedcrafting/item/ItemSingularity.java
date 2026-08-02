@@ -14,10 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +47,7 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
 
     @Override
     public void init() {
+        // ============ 移除白名单检查，直接添加所有默认奇点 ============
         addSingularity(0, "coal", new ItemStack(Items.COAL), 0x1B1B1B);
         addSingularity(1, "iron", "ingotIron", 0x969696);
         addSingularity(2, "lapis_lazuli", new ItemStack(Items.DYE, 1, 4), 0x345EC3);
@@ -97,30 +96,30 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
     public boolean isEnabled() {
         return ModConfig.confSingularityEnabled;
     }
+
+    // ============ 简化 addSingularity 方法 ============
+    // 移除白名单检查，直接添加所有奇点
     
     public void addSingularity(int meta, String name, ItemStack material, int color) {
-        addToConfig(name);
-        boolean enabled = checkConfig(name);
-
-        if (enabled) {
-            singularityColors.put(meta, color);
-            singularityMaterials.put(meta, material);
-        }
-
-        addItem(meta, name, enabled);
+        singularityColors.put(meta, color);
+        singularityMaterials.put(meta, material);
+        // 已删除: ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
+        // 已删除: 白名单/黑名单检查
+        addItem(meta, name, true);
     }
 
     public void addSingularity(int meta, String name, String oreName, int color) {
-        addToConfig(name);
-        boolean enabled = checkConfig(name);
-
-        if (enabled) {
-            singularityColors.put(meta, color);
-            singularityMaterials.put(meta, oreName);
-        }
-
-        addItem(meta, name, enabled);
+        singularityColors.put(meta, color);
+        singularityMaterials.put(meta, oreName);
+        // 已删除: ItemSingularityUltimate.addSingularityToRecipe(new ItemStack(this, 1, meta));
+        // 已删除: 白名单/黑名单检查
+        addItem(meta, name, true);
     }
+
+    // ============ 移除 checkConfig 和 addToConfig 方法 ============
+    // 不再需要检查配置来启用/禁用奇点
+    // 已删除: public boolean checkConfig(String name) { ... }
+    // 已删除: private void addToConfig(String name) { ... }
 
     public void initRecipes() {
         if (!ModConfig.confSingularityRecipes || !this.isEnabled())
@@ -150,30 +149,6 @@ public class ItemSingularity extends ItemMeta implements IEnableable {
             } else {
                 ExtendedCrafting.LOGGER.error("Invalid material for singularity: " + value.toString());
             }
-        }
-    }
-
-    public boolean checkConfig(String name) {
-        String[] values = this.config.get("singularity", "default_singularities", new String[0]).getStringList();
-
-        for (String value : values) {
-            String[] entry = value.split("=");
-            if (entry[0].equals(name)) {
-                return Boolean.parseBoolean(entry[1]);
-            }
-        }
-
-        return false;
-    }
-
-    private void addToConfig(String name) {
-        Property prop = this.config.get("singularity", "default_singularities", new String[0]);
-        String[] values = prop.getStringList();
-        if (Arrays.stream(values).noneMatch(s -> s.split("=")[0].equals(name))) {
-            String[] newValues = new String[values.length + 1];
-            System.arraycopy(values, 0, newValues, 0, values.length);
-            newValues[values.length] = name + "=" + ModConfig.removeSingularity(name);
-            prop.set(newValues);
         }
     }
 
