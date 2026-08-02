@@ -34,8 +34,10 @@ public class ModConfig {
     public static int confSingularityAmount;
     public static int confSingularityRF;
     public static boolean confSingularityRecipes;
-    // 已删除: public static boolean confUltimateSingularityRecipe;
     public static String confSingularityCatalyst;
+    
+    // ============ 添加: 自定义奇点配置项 ============
+    public static String[] confCustomSingularities;
 
     public static int confEUtoRF;
 
@@ -90,11 +92,23 @@ public class ModConfig {
         confSingularityRF = config.getInt("energy_cost", category, 5000000, 0, Integer.MAX_VALUE, "The amount of RF required to craft a Singularity, for the default recipes.");
         confSingularityCatalyst = config.getString("default_catalyst", category, "extendedcrafting:material:11", "The catalyst required for the default Singularity recipes. modid:itemid:metadata");
         confSingularityRecipes = config.getBoolean("default_recipes", category, true, "Should the default Singularity recipes be enabled?");
-        // 已删除: confUltimateSingularityRecipe = config.getBoolean("ultimate_singularity_recipe", category, true, "...");
-        // ============ 移除所有白名单/黑名单配置 ============
-        // 已删除: config.get(category.getName(), "default_singularities", new String[0]);
-        // 已删除: config.get(category.getName(), "ultimate_singularity_recipe_blacklist", new String[0]);
-        // 已删除: config.get(category.getName(), "custom_singularity_blacklist", new String[0]);
+        
+        // ============ 关键: 读取 custom_singularities 配置 ============
+        confCustomSingularities = config.getStringList("custom_singularities", category, new String[0], 
+            "Here you can add your own custom Singularities.\n" +
+            "- Syntax: meta;name;material;color\n" +
+            "- Example: 12;super_potato;minecraft:carrot;123456\n" +
+            "- 'meta' must be different for each, and should not be changed.\n" +
+            "- 'name' should be lower case with underscores for spaces. Singularity is added automatically.\n" +
+            "- Example: 'lots_of_spaghetti' would show 'Lots Of Spaghetti Singularity'.\n" +
+            "- 'material' is an item id or ore dictionary entry. This is for the generic crafting recipe.\n" +
+            "- Note: if you plan on adding your own recipe with the CraftTweaker integration, put 'none'.\n" +
+            "- Examples: 'minecraft:stone' for stone, 'ore:ingotIron' for the ore dictionary entry 'ingotIron'.\n" +
+            "- Note: you can also specify meta for item ids, by adding them to the end of the item id.\n" +
+            "- Example: minecraft:stone:3 for a meta of 3. Make the meta 32767 for wildcard value.\n" +
+            "- 'color' the color of the singularity as a hex value. http://htmlcolorcodes.com/\n" +
+            "- Example: 123456 would color it as whatever that color is.\n" +
+            "- Use the localization key \"item.ec.singularity.<name>\" to set the name of your custom Singularity.");
 
         category = "gregtech";
         config.setCategoryComment(category, "Settings for GregTech compatibility.");
@@ -121,9 +135,7 @@ public class ModConfig {
             config.renameProperty("singularity", "_singularity_rf", "energy_cost");
             config.renameProperty("singularity", "_singularity_catalyst", "default_catalyst");
             config.renameProperty("singularity", "_singularity_recipes", "default_recipes");
-            // 已删除: config.renameProperty("singularity", "_ultimate_singularity_recipe", "ultimate_singularity_recipe");
             config.renameProperty("singularity", "_custom_singularities", "custom_singularities");
-            // 已删除: config.renameProperty("singularity", "_ultimate_blacklist", "ultimate_singularity_recipe_blacklist");
         }
     }
     
@@ -132,7 +144,9 @@ public class ModConfig {
         config.renameProperty(newCategory, oldName, newName);
     }
     
-    // ============ 删除 removeSingularity 方法 ============
-    // 不再需要从配置中读取白名单
-    // 已删除: public static boolean removeSingularity(String name) { ... }
+    public static boolean removeSingularity(String name) {
+        boolean value = config.get("singularity", name, true).getBoolean();
+        config.getCategory("singularity").remove(name);
+        return value;
+    }
 }
