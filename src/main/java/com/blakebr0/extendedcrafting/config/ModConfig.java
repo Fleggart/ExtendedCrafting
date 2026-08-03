@@ -31,9 +31,7 @@ public class ModConfig {
     
     public static boolean confSingularityEnabled;
     public static int confSingularityAmount;
-    // ============ 删除: confSingularityRF (不再使用) ============
     public static boolean confSingularityRecipes;
-    public static String confSingularityCatalyst;
     
     public static String[] confCustomSingularities;
 
@@ -86,9 +84,8 @@ public class ModConfig {
         config.setCategoryComment(category, "Settings for the Singularities.");
         confSingularityEnabled = config.getBoolean("enabled", category, true, "Should the Singularities be enabled?");
         confSingularityAmount = config.getInt("material_amount", category, 10000, 1, Integer.MAX_VALUE, "The amount of materials required to create a Singularity, for the default recipes.");
-        // ============ 删除: energy_cost 配置 ============
-        // 原: confSingularityRF = config.getInt("energy_cost", category, 5000000, 0, Integer.MAX_VALUE, "...");
-        confSingularityCatalyst = config.getString("default_catalyst", category, "extendedcrafting:material:11", "The catalyst required for the default Singularity recipes. modid:itemid:metadata");
+        // ============ 删除: default_catalyst 配置 ============
+        // 原: confSingularityCatalyst = config.getString("default_catalyst", category, "extendedcrafting:material:11", "...");
         confSingularityRecipes = config.getBoolean("default_recipes", category, true, "Should the default Singularity recipes be enabled?");
         
         confCustomSingularities = config.getStringList("custom_singularities", category, new String[0], 
@@ -128,9 +125,8 @@ public class ModConfig {
             config.removeCategory(settings);
             
             config.renameProperty("singularity", "_singularity_amount", "material_amount");
-            // ============ 删除: _singularity_rf 迁移 ============
-            // config.renameProperty("singularity", "_singularity_rf", "energy_cost");
-            config.renameProperty("singularity", "_singularity_catalyst", "default_catalyst");
+            // ============ 删除: _singularity_catalyst 迁移 ============
+            // config.renameProperty("singularity", "_singularity_catalyst", "default_catalyst");
             config.renameProperty("singularity", "_singularity_recipes", "default_recipes");
             config.renameProperty("singularity", "_custom_singularities", "custom_singularities");
         }
